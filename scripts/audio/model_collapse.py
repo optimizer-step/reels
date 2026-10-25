@@ -13,7 +13,7 @@ from scipy import signal
 
 SR = 44100
 rng = np.random.default_rng(7)
-OUT = os.path.join(os.path.dirname(__file__), "..", "public", "reels", "model-collapse")
+OUT = os.path.join(os.path.dirname(__file__), "..", "..", "public", "reels", "model-collapse")
 
 
 def t_(dur):

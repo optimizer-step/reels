@@ -38,7 +38,7 @@ Sources: [Hootsuite, Instagram algorithm 2026](https://blog.hootsuite.com/instag
 | Slug | Hook | Screenshot moment |
 | --- | --- | --- |
 | `overfitting-exam` | The topper who failed the new paper | Accuracy 100% on practice, 40% on the real exam |
-| `attention-bank` | SBI or the river bank? How AI decides | Heatmap lighting up "money" vs "river" |
+| ~~`attention-bank`~~ | Built as reel 002 | — |
 | `gradient-chai` | Finding the chai stall in fog | The ball overshoots when the step is too big |
 | `temperature-dice` | Why ChatGPT answers differently every time | Same prompt, temperature 0 vs 1.5 side by side |
 | `tokens-strawberry` | Why AI used to miscount the r's in "strawberry" | "straw" + "berry": the model never sees letters |

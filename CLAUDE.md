@@ -24,14 +24,22 @@ writing a script.
 
 ## Building a reel
 
-1. `npm run new -- <slug>`; write `copy.ts` (all strings) and `timeline.ts` (all times, seconds).
-2. Build beats in `scenes/` from `src/kit` components. Animation must be a pure function of time
-   (`t` in seconds) so beats can be retimed and cut seamlessly. Use `rand(seed)`, never `Math.random()`.
-3. Check visually before rendering the full reel: `npm run stills -- <CompId> <frames...>`, then
-   `python3 scripts/sheet.py out/sheet.png <pngs>` and look at the sheet. Check every beat,
-   every wipe, the peak-effect frame, the cover, and that the last frame matches frame 0.
-4. `npm run render -- <slug>`. Deliver `out/<slug>/<slug>.mp4` (upload copy) and `cover.png`.
-5. Update the table in `README.md` and the reel's brief in `docs/reels/`.
+1. Write the brief first in `docs/reels/<nnn>-<slug>.md`: script table (time, Hinglish VO,
+   on-screen text, visual), caption, pinned comment and fact sheet with links. Label any
+   made-up numbers as an illustration, on screen and in the brief.
+2. `npm run new -- <slug>`; write `copy.ts` (all strings) and `timeline.ts` (all times, seconds;
+   use `cue("word", nth, fallback)` for anything that should land on a spoken word).
+3. Build from `src/kit`. Prefer one continuous camera world (`Camera` + `Layer`, stations in
+   world pixels, screen-space overlays for headlines) over hard cuts; see `src/reels/attention-bank`.
+   Animation must be a pure function of time (`t` in seconds). Use `rand(seed)`, never `Math.random()`.
+4. When the camera leaves a station, fade that station out, or its content will collide with
+   the next beat's headline. Bring it back for fly-overs.
+5. `npm run check -- <CompId>` and look at every contact sheet: text inside the safe zone, no
+   overlaps, flights readable, peak-effect frames legible, cover, and the loop number (< ~6).
+   Fix, re-check the changed frames with `npm run stills`, then render.
+6. Sound: add a `scripts/audio/<slug>.py` using `sfxlib.py`; cue files in `timeline.ts`.
+7. `npm run render -- <slug>` (background it). Deliver `out/<slug>/<slug>.mp4` and `cover.png`.
+8. Update the table in `README.md` and the reel's brief.
 
 ## Gotchas
 
@@ -41,3 +49,9 @@ writing a script.
 - Film grain makes masters big (~600 MB for 54 s at CRF 18); the render script's upload copy is
   ~110 MB. Never commit `out/`.
 - A 54 s reel takes ~8 min to render with 2 CPUs; run it in the background.
+- Hugging Face is unreachable from the sandbox, so real model weights/attention can't be computed
+  there; label illustrative numbers as such.
+- `Camera` motion blur is directional (from screen-space velocity); very fast snaps are best
+  hidden under a `Glitch` cut.
+- Token chips use JetBrains Mono so widths are exact (0.6 em per character); keep sentences
+  under ~23 characters at 40 px to fit the safe zone.

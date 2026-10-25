@@ -4,82 +4,96 @@ AI/ML explainer reels for Instagram and YouTube Shorts, built entirely in code w
 [Remotion](https://www.remotion.dev/) (React + TypeScript). Every graphic is drawn with SVG/CSS,
 so every word, number and timing is exact and editable.
 
-| # | Reel | Folder | Status |
-| --- | --- | --- | --- |
-| 001 | AI is eating its own homework (model collapse) | `src/reels/model-collapse` | Rendered, awaiting voiceover |
+| # | Reel | Folder | Length | Status |
+| --- | --- | --- | --- | --- |
+| 001 | AI is eating its own homework (model collapse) | `src/reels/model-collapse` | 54 s | Rendered, awaiting voiceover |
+| 002 | SBI or river bank? How AI decides (attention) | `src/reels/attention-bank` | 47 s | Rendered, awaiting voiceover |
+
+Briefs, scripts and fact sheets: `docs/reels/`. Strategy and concept bank: `docs/playbook.md`.
 
 ## Quick start
 
 ```bash
 npm install
-npm run studio                       # live preview of every reel
-npm run new -- attention-bank        # start a new reel from the template
-npm run render -- model-collapse     # -> out/model-collapse/{model-collapse.mp4, master.mp4, cover.png}
-npm run stills -- ModelCollapse 15 150 330   # check stills -> out/stills/ModelCollapse/
+npm run studio                          # live preview of every reel
+npm run new -- overfitting-exam         # start a new reel from the template
+npm run check -- AttentionBank          # contact sheets every 2 s + loop check (no video render)
+npm run render -- attention-bank        # -> out/attention-bank/{attention-bank.mp4, master.mp4, cover.png}
+npm run stills -- AttentionBank 15 300  # specific frames -> out/stills/AttentionBank/
 npm run typecheck
+python3 scripts/audio/attention_bank.py # regenerate a reel's synthesised sound
 ```
 
 `out/<slug>/<slug>.mp4` is the upload copy (~16 Mbps cap, fast-start). `master.mp4` is the
-CRF 18 master; film grain makes it large, so it is not committed.
+CRF 18 master; film grain makes it large, so `out/` is never committed.
+
+## The kit (`src/kit`, import from `src/kit/index.ts`)
+
+| Component | What it does |
+| --- | --- |
+| `Camera`, `Layer`, `At` | 2.5D camera over a large world canvas: keyframed glides and zooms, parallax layers, automatic directional motion blur from camera speed |
+| `Space3D` | SVG 3D scatter with rotation, perspective, depth-sorting, fog, glow, trails and a floor grid (embedding / meaning spaces) |
+| `TokenRow`, `tokenLayout` | Monospace token chips with exact positions, focus/highlight/dim states |
+| `AttentionBeams` | Weighted attention arcs with glow, % labels and particles flowing toward the attending token |
+| `Heatmap` | Attention matrix with diagonal reveal, causal mask and row highlight |
+| `DecodeText` | Characters scramble through glyphs before settling (vectors, AI text) |
+| `DustField`, `Burst` | Drifting motes for depth; particle bursts for impacts |
+| `Glitch` | Slice-and-shift RGB glitch, for cuts and emphasis |
+| `Headline`, `Tag` | Word-by-word pop headline (`*word*` = yellow + underline swipe), small source tags |
+| `CounterHUD` | "GEN 3" / "STEP 2" counter with flip animation and progress pips |
+| `useBeatSwitch`, `LightBar` | Beat sequencing with the photocopier light-bar wipe |
+| `Degrade`, `Grain`, `Vignette`, `Backdrop` | House look: decay effect, film grain, vignette, dot-grid background |
+| `BellCurve` | Normal distribution with "rare" tails |
+| `ReelAudio` | Voiceover, music bed (ducks under VO, silence windows), SFX cue list |
+| `makeCue` (`sync.ts`) | Word-synced timing: cues follow the voiceover once `words.json` exists |
+
+Sound: `scripts/audio/sfxlib.py` synthesises whooshes, camera flights, impacts, risers, glitches,
+pops, typing, beams, swells and a music bed (kick, hats, sub, pad, pluck arpeggio) from code.
 
 ## Layout
 
 ```
 src/
-  kit/                    shared house style, used by every reel
-    theme.ts              colours, fonts, sizes, Reels safe zone, FPS
-    anim.ts               easing, springs, piecewise curves, seeded random
-    fonts.ts              local fonts (public/fonts, from @fontsource)
-    components/
-      Headline.tsx        word-by-word pop headline (*word* = yellow + underline swipe) and Tag
-      HUD.tsx             CounterHUD ("GEN 3", "EPOCH 12") with flip + progress pips
-      BeatSwitcher.tsx    beat sequencing with the photocopier light-bar wipe
-      Degrade.tsx         global decay: blur, desaturation, chromatic offset, jitter
-      Grain.tsx           animated film grain + vignette
-      LightBar.tsx        the light bar itself
-      BellCurve.tsx       normal distribution with "rare" tails
-      Backdrop.tsx        near-black dot-grid background
-      Icons.tsx           robot, globe, arrows
-      Captions.tsx        burned-in captions from JSON + safe-zone dev overlay
-      ReelAudio.tsx       voiceover, ducked music bed with silence windows, SFX cues
+  kit/                    shared house style + components (above)
   reels/
     _template/            copied by `npm run new`
     model-collapse/       reel 001
-      timeline.ts         every time in SECONDS + asset flags (retime to your VO here)
+    attention-bank/       reel 002 — one continuous camera world
+      timeline.ts         every time in SECONDS, camera keys, asset flags, SFX cues
       copy.ts             every on-screen string
-      Reel.tsx            the composition
-      scenes/             one file per beat
+      data.ts             illustrative weights, 3D points
+      words.json          voiceover word timings (empty until the VO exists)
+      scenes/             world stations + screen overlays
   Root.tsx                registers all reels (new-reel.mjs edits it)
 public/
   fonts/
   reels/<slug>/           vo.mp3, music.mp3, sfx/, broll/, captions.json
 scripts/
-  new-reel.mjs            scaffold a reel
-  render.mjs              master + upload copy + cover
-  stills.mjs              check stills
-  sheet.py                contact sheet: python3 scripts/sheet.py out/sheet.png <pngs...>
-  make_audio_model_collapse.py   synthesised SFX + music bed for reel 001
+  new-reel.mjs  render.mjs  stills.mjs  check.mjs  sheet.py  chrome.mjs
+  audio/                  sfxlib.py + one sound script per reel
 docs/
-  playbook.md             what makes reels travel + concept bank
-  reels/                  one brief per reel (script, sources)
+  playbook.md             ranking signals, rules, formats, concept bank
+  reels/                  one brief per reel (script, caption, fact sheet)
 ```
 
 ## Adding a voiceover to a reel
 
-1. Save it as `public/reels/<slug>/vo.mp3`.
-2. In that reel's `timeline.ts`, set `USE_VO = true` (music ducks automatically).
-3. Move the beat and cue times to match the recording. Everything reads from `timeline.ts`.
-4. `npm run render -- <slug>`.
+1. Save it as `public/reels/<slug>/vo.mp3` and set `USE_VO = true` in the reel's `timeline.ts`
+   (music ducks automatically).
+2. Put the word timings in `src/reels/<slug>/words.json` as `[{ "text", "start", "end" }]`
+   (seconds; any speech-to-text with word timestamps produces this). Cues written with
+   `cue("word", nth, fallback)` then snap to the real delivery. Adjust any others by hand.
+3. `npm run check -- <CompId>` to eyeball it, then `npm run render -- <slug>`.
 
 ## B-roll
 
 Generate clips in Kling or Higgsfield (9:16, ~5 s, no text in the prompt), save them in
-`public/reels/<slug>/broll/` with the names the reel's `timeline.ts` lists, and flip the
-matching `BROLL` flag.
+`public/reels/<slug>/broll/`, and wire them in with `OffthreadVideo` behind a flag.
 
 ## Rendering notes
 
-- Chrome: `remotion.config.ts` and `scripts/chrome.mjs` use a local headless Chrome if one
-  exists; set `REMOTION_CHROME=/path/to/chrome` to override, or let Remotion download its own.
+- A local headless Chrome is used when present (`scripts/chrome.mjs`); set `REMOTION_CHROME`
+  to override, or let Remotion download its own.
 - Fonts load from `public/fonts`, so rendering needs no network.
 - Keep all `@remotion/*` packages on the same exact version.
+- ~50 s reels take 8–12 min to render on 2 CPUs, plus ~7 min for the upload encode.

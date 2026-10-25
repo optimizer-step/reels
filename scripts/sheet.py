@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 files = sys.argv[2:]
 out = sys.argv[1]
 w, h = 360, 640
-cols = min(5, len(files))
+cols = min(6, len(files))
 rows = (len(files) + cols - 1) // cols
 sheet = Image.new("RGB", (cols * w, rows * (h + 28)), (40, 40, 40))
 d = ImageDraw.Draw(sheet)
