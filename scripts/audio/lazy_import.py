@@ -330,6 +330,35 @@ def send():
     return one(reverb(x, 0.7, 0.2), -4)
 
 
+def logo():
+    """Brand sting: a reversed swell into a warm hit and a bright, wide chord bloom."""
+    swell = reverse_swell(0.6, 1.3) * 0.5
+    t = t_(2.6)
+    hitx = kick2(0.8, 150, 45, click=0.4, drive=2.2, decay=5) * 0.7
+    chord = sum(fm_bell(m2f(m), 2.6, 1.0, 2.0, 1.3) for m in (65, 69, 72, 76, 79)) * 0.22
+    air = hp(noise(len(t)), 5000) * np.exp(-t * 2.5) * 0.08
+    out = np.zeros((int(3.3 * SR), 2))
+    place(out, swell, 0)
+    place(out, st(hitx), 0.6)
+    place(out, haas(chord + air, 9), 0.6)
+    return one(reverb(out, 2.2, 0.32), -1)
+
+
+def tap():
+    t = t_(0.12)
+    x = osc(np.full(len(t), 1300.0)) * np.exp(-t * 90) * 0.5 + bp(noise(len(t)), 2500, 9000) * np.exp(-t * 260)
+    return one(reverb(x, 0.4, 0.12), -3)
+
+
+def follow():
+    """'Following': a pop and a rising two-note success chime."""
+    out = np.zeros((int(1.6 * SR), 2))
+    place(out, pop(880) * 0.8, 0)
+    place(out, fm_bell(m2f(81), 1.2, 1.2, 2.0, 3.0) * 0.5, 0.04)
+    place(out, fm_bell(m2f(88), 1.3, 1.2, 2.0, 2.8) * 0.55, 0.13)
+    return one(reverb(haas(out[:, 0], 6), 1.2, 0.28), -2)
+
+
 def write_sfx():
     SFX.mkdir(parents=True, exist_ok=True)
     files = {
@@ -340,6 +369,7 @@ def write_sfx():
         "print": printer(), "bell": bell(), "flip": flip(), "stamp2": stamp(False),
         "pop": pop(880), "reject": reject(), "accept": accept(), "chime": chime(),
         "card": card(), "uhoh": uhoh(), "error": error(), "key": key(), "send": send(),
+        "logo": logo(), "tap": tap(), "follow": follow(),
     }
     for name, x in files.items():
         save(x, SFX / f"{name}.mp3")
@@ -438,9 +468,14 @@ def score():
 
     g.block(B["payoff"]["start"], B["cta"]["start"], BRIGHT, partE)
 
-    # block F: CTA, then back into the cold open's drone so the audio loops
+    # block F: CTA groove, a held chord under the brand end card, then the cold open's drone (loop)
     whip2 = C["cta"]["whip"]
-    g.block(B["cta"]["start"], whip2, [Fmaj7, G6], lambda t: {"pad": 1, "cut": 2400, "kick": "main", "clap": "main", "hats": 16, "open": 1, "bass": 1, "arp": 8})
+    endT = B["end"]["start"]
+    g.block(B["cta"]["start"], endT - 0.05, [Fmaj7, G6], lambda t: {"pad": 1, "cut": 2400, "kick": "main", "clap": "main", "hats": 16, "open": 1, "bass": 1, "arp": 8})
+    hold = whip2 - endT + 0.3
+    pad_end = supersaw([m2f(m) for m in (53, 57, 60, 64, 67)], hold, cutoff=2600, seed=7) * adsr(int(hold * SR), 0.05, 0.4, 0.8, 0.5)[:, None]
+    place(g.pad, pad_end * 1.1, endT)
+    place(g.bass, sub_note(m2f(41), min(1.6, hold), drive=3.0) * 0.4, endT)
     place(g.fx, drone(DUR - whip2 + 0.05, fade_in=0.25, fade_out=0.01) * 0.5, whip2)
 
     stems = g.stems()

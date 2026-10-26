@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, Audio, staticFile, useCurrentFrame } from "remotion";
-import { Backdrop, COLORS, Flash, Glitch, Grain, Headline, ReelAudio, SHOW_SAFE_ZONE, SafeZoneOverlay, Vignette, WhipPan, ensureFonts, prog, shake } from "../../kit";
+import { Backdrop, COLORS, EndCard, Flash, Glitch, Grain, Headline, ReelAudio, SHOW_SAFE_ZONE, SafeZoneOverlay, Vignette, WhipPan, ensureFonts, prog, shake } from "../../kit";
 import { copy } from "./copy";
 import { Cta } from "./scenes/Cta";
 import { HistoryHeadline, HookHeadline, PayoffHeadlines, WorkbenchHeadlines } from "./scenes/Headlines";
@@ -54,6 +54,7 @@ const PayoffScene: React.FC<{ t: number }> = ({ t }) => (
     <Payoff t={t} />
     <PayoffHeadlines t={t} />
     <Cta t={t} />
+    <EndCard t={t} t0={B.end.start} />
   </AbsoluteFill>
 );
 

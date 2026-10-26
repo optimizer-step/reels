@@ -42,3 +42,4 @@ export { Odometer } from "./components/Odometer";
 export { Slider } from "./components/Slider";
 export { LineChart } from "./components/LineChart";
 export type { Series } from "./components/LineChart";
+export { EndCard, END_CARD } from "./components/EndCard";

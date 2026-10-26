@@ -19,7 +19,8 @@ writing a script.
   Centre content on `CX` (500), not the frame centre.
 - **Structure:** hook that works on mute in the first 1.5 s → stakes → proof → open loop →
   payoff (a screenshot moment) → re-hook every 7–10 s → twist → one-word comment CTA →
-  last frame matches the first so the reel loops. Target 30–45 s.
+  brand end card (`EndCard`: the Optimizer Step logo + Follow tap, ~2.7 s) → last frame matches
+  the first so the reel loops. Target 30–45 s before the end card.
 - **No generated text inside video clips.** Words, numbers and diagrams are drawn in code;
   Kling/Higgsfield only supply mood B-roll (`shots.json`), HeyGen only the voice and an optional
   presenter clip (`presenter.json`). Generation runs in the *Generate reel assets* workflow with

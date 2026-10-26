@@ -3,7 +3,7 @@
 // Voice-driven: each beat starts on a voiceover line (vo-lines.json, written by the voice tools in
 // scripts/gen), and cue("word") lands animation on spoken words (words.json). Fallbacks below are
 // the designed times for when no voice exists yet.
-import { FPS, makeCue, type Impact, type SfxCue, type Word } from "../../kit";
+import { END_CARD, FPS, makeCue, type Impact, type SfxCue, type Word } from "../../kit";
 import voLines from "./vo-lines.json";
 import words from "./words.json";
 
@@ -35,7 +35,9 @@ const l7 = L(7, 21.59);
 const l8 = L(8, 28.42);
 const l9 = L(9, 36.35);
 const l10 = L(10, 42.93);
-export const DURATION_S = Math.max(l10 + 3.1, LE(10, 44.68) + 1.3);
+/** brand end card (logo + Follow) after the comment box has sent, before the loop whip */
+const END_START = Math.max(l10 + 2.35, LE(10, 44.68) + 0.5);
+export const DURATION_S = END_START + END_CARD.length + 0.72;
 export const DURATION_FRAMES = Math.round(DURATION_S * FPS);
 
 export const BEATS = {
@@ -48,7 +50,8 @@ export const BEATS = {
   token: { start: l7 - 0.1, end: l8 - 0.15 },
   history: { start: l8 - 0.15, end: l9 - 0.15 },
   payoff: { start: l9 - 0.15, end: l10 - 0.1 },
-  cta: { start: l10 - 0.1, end: DURATION_S },
+  cta: { start: l10 - 0.1, end: END_START },
+  end: { start: END_START, end: DURATION_S },
 } as const;
 const B = BEATS;
 
@@ -191,5 +194,9 @@ export const SFX_CUES: SfxCue[] = [
   { file: "hit", t: CUES.cta.headline + 0.28, volume: 0.4 },
   ...[1, 2, 3, 4].map((k) => ({ file: "key", t: ctaType + 0.35 + (k * 0.6) / 4.999, volume: 0.3 })),
   { file: "send", t: ctaType + 1.15, volume: 0.4 },
+  // brand end card
+  { file: "logo", t: B.end.start - 0.02, volume: 0.6 },
+  { file: "tap", t: B.end.start + END_CARD.press, volume: 0.45 },
+  { file: "follow", t: B.end.start + END_CARD.following, volume: 0.5 },
   { file: "whip", t: CUES.cta.whip - 0.05, volume: 0.5 },
 ];

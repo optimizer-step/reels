@@ -9,7 +9,7 @@ so every word, number and timing is exact and editable.
 | 001 | AI is eating its own homework (model collapse) | `src/reels/model-collapse` | 54 s | Rendered, awaiting voiceover |
 | 002 | SBI or river bank? How AI decides (attention) | `src/reels/attention-bank` | 47 s | Rendered, awaiting voiceover |
 | 003 | One number can break AI training (learning rate) | `src/reels/gradient-descent` | 44 s | Rendered with a scratch English voice, full score and mastered mix; swap in the HeyGen voice when ready |
-| 004 | One word that makes Python start 16× faster (lazy imports, Python 3.15) | `src/reels/lazy-import` | 46 s | Rendered with a scratch English voice, full score and mastered mix; real benchmark in `docs/reels/004-lazy-import/` |
+| 004 | One word that makes Python start 16× faster (lazy imports, Python 3.15) | `src/reels/lazy-import` | 49 s | Rendered with a scratch English voice, full score and mastered mix; real benchmark in `docs/reels/004-lazy-import/` |
 
 Briefs, scripts and fact sheets: `docs/reels/`. Strategy and concept bank: `docs/playbook.md`.
 
@@ -58,6 +58,7 @@ CRF 18 master; film grain makes it large, so `out/` is never committed.
 | `WhipPan`, `RewindFX`, `Flash` | Motion-blurred whip pans between scenes, VHS time-reversal, impact flashes |
 | `Space3D` `declutter` | Labels fade where they would collide with a higher-priority label |
 | `motion.ts` | `remap`, `shake`, `shutterSamples`, `squashStretch`, `stepValue` |
+| `EndCard`, `END_CARD` | Brand end card: logo reveal (ring light sweep, spark down the descent path, wordmark shine) and an animated Follow tap; logo in `public/brand/` |
 
 Sound: `scripts/audio/sfxlib.py` synthesises everything from code: whooshes, flights, impacts,
 risers, glitches, pops, typing, beams, swells and two music engines (v1 bed; v2 production tools:

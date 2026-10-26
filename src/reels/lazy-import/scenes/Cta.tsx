@@ -5,7 +5,9 @@ import { BEATS, CUES } from "../timeline";
 
 /** Comment CTA: a comment box types the keyword (no fake comments from other people). */
 export const Cta: React.FC<{ t: number }> = ({ t }) => {
-  if (t < BEATS.cta.start - 0.1) return null;
+  if (t < BEATS.cta.start - 0.1 || t > BEATS.end.start + 0.1) return null;
+  // everything clears (rise + fade) as the brand end card comes in
+  const out = prog(t, BEATS.end.start - 0.3, BEATS.end.start + 0.05, ease.in);
   const at = CUES.cta.sub + 0.25;
   const s = springAt(t, at);
   const typed = copy.cta.typed;
@@ -14,7 +16,7 @@ export const Cta: React.FC<{ t: number }> = ({ t }) => {
   const cursor = Math.floor(t * 3) % 2 === 0;
   return (
     <>
-      <Headline t={t} start={CUES.cta.headline} lines={copy.cta.headline} top={430} size={150} align="center" variant="slam" lineStarts={[CUES.cta.headline, CUES.cta.headline + 0.28]} lineHeight={0.95} />
+      <Headline t={t} start={CUES.cta.headline} lines={copy.cta.headline} top={430} size={150} align="center" variant="slam" lineStarts={[CUES.cta.headline, CUES.cta.headline + 0.28]} lineHeight={0.95} exit={BEATS.end.start - 0.3} />
       <div
         style={{
           position: "absolute",
@@ -26,8 +28,8 @@ export const Cta: React.FC<{ t: number }> = ({ t }) => {
           fontWeight: 500,
           fontSize: 48,
           color: COLORS.text,
-          opacity: prog(t, CUES.cta.sub, CUES.cta.sub + 0.35),
-          transform: `translateY(${(1 - prog(t, CUES.cta.sub, CUES.cta.sub + 0.4, ease.out)) * 24}px)`,
+          opacity: prog(t, CUES.cta.sub, CUES.cta.sub + 0.35) * (1 - out),
+          transform: `translateY(${(1 - prog(t, CUES.cta.sub, CUES.cta.sub + 0.4, ease.out)) * 24 - 40 * out}px)`,
         }}
       >
         {copy.cta.sub}
@@ -47,8 +49,8 @@ export const Cta: React.FC<{ t: number }> = ({ t }) => {
             alignItems: "center",
             gap: 22,
             padding: "0 22px",
-            opacity: Math.min(1, s * 1.5),
-            transform: `translateY(${(1 - s) * 60}px)`,
+            opacity: Math.min(1, s * 1.5) * (1 - out),
+            transform: `translateY(${(1 - s) * 60 - 40 * out}px)`,
           }}
         >
           <div style={{ width: 66, height: 66, borderRadius: 33, background: "linear-gradient(135deg, #3a3a46, #22222a)", flexShrink: 0 }} />

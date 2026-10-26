@@ -1,7 +1,7 @@
 # 004 — One word that makes Python start 16× faster (lazy imports)
 
 - **Folder:** `src/reels/lazy-import` · compositions `LazyImport`, `LazyImport-Cover`
-- **Length:** ~46 s · 1080×1920 · 30 fps · English
+- **Length:** ~48.7 s (incl. 3.4 s brand end card) · 1080×1920 · 30 fps · English
 - **Status:** v1 built with a scratch voice (Kokoro `af_heart`, 1.15×). Swap in the HeyGen voice
   with the *Generate reel assets* workflow (task `voice`, slug `lazy-import`).
 - **Audience:** working professionals learning Python for AI/ML, no CS background. One idea:
@@ -43,7 +43,8 @@ matplotlib 3.11.2, requests 2.34.2. Your numbers will differ; the gap is the poi
 | 21.5–28.3 | Tokens | — | Dosa-counter tokens; `pd` and `plt` resolve when used; `requests` stays NEVER LOADED |
 | 28.3–36.2 | Why so late | **Whip** to a timeline | 2022 PEP 690 "all imports lazy" REJECTED; 2025 PEP 810 opt-in ACCEPTED; Python 3.15 ships Oct 2026 |
 | 36.2–42.8 | Payoff + catch | **Whip** down | Three stat cards; then a traceback card: errors appear at first use |
-| 42.8–46 | CTA + loop | — | COMMENT LAZY; comment box types it; whip back to the race at frame 0 |
+| 42.8–45.3 | CTA | — | COMMENT LAZY; comment box types it and sends |
+| 45.3–48.7 | Brand end card + loop | CTA rises away | Optimizer Step logo: circular reveal, light sweep round the ring, a spark down the logo's descent path, shine on the wordmark; a Follow button pops in, gets tapped, turns to Following; whip back to the race at frame 0 |
 
 ## Voiceover and on-screen text
 
