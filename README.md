@@ -8,7 +8,7 @@ so every word, number and timing is exact and editable.
 | --- | --- | --- | --- | --- |
 | 001 | AI is eating its own homework (model collapse) | `src/reels/model-collapse` | 54 s | Rendered, awaiting voiceover |
 | 002 | SBI or river bank? How AI decides (attention) | `src/reels/attention-bank` | 47 s | Rendered, awaiting voiceover |
-| 003 | Why AI overshoots (gradient descent, two exact runs) | `src/reels/gradient-descent` | 36 s | Code complete; needs visual QA, VO and final render |
+| 003 | One number can break AI training (learning rate) | `src/reels/gradient-descent` | 44 s | Rendered with a scratch English voice, full score and mastered mix; swap in the HeyGen voice when ready |
 
 Briefs, scripts and fact sheets: `docs/reels/`. Strategy and concept bank: `docs/playbook.md`.
 
@@ -25,6 +25,8 @@ npm run render -- attention-bank        # -> out/attention-bank/{attention-bank.
 npm run stills -- AttentionBank 15 300  # specific frames -> out/stills/AttentionBank/
 npm run typecheck
 python3 scripts/audio/attention_bank.py # regenerate a reel's synthesised sound
+python3 scripts/gen/kokoro_tts.py gradient-descent   # offline English voice from vo.json (no key)
+python3 scripts/audio/gradient_descent.py           # SFX + score + mastered mix.mp3, cut to the timeline
 ```
 
 `out/<slug>/<slug>.mp4` is the upload copy (~16 Mbps cap, fast-start). `master.mp4` is the
@@ -49,9 +51,18 @@ CRF 18 master; film grain makes it large, so `out/` is never committed.
 | `BellCurve` | Normal distribution with "rare" tails |
 | `ReelAudio` | Voiceover, music bed (ducks under VO, silence windows), SFX cue list |
 | `makeCue` (`sync.ts`) | Word-synced timing: cues follow the voiceover once `words.json` exists |
+| `Terrain` | Shaded 3D surface (painter's algorithm, contour lines, fog, specular) for loss landscapes |
+| `LineChart` | Glowing lines drawn over time; a line can escape the plot and burn out (`fadeTop`) |
+| `Slider`, `Odometer` | On-screen control with zones and ticks; rolling-digit counters (Indian grouping) |
+| `WhipPan`, `RewindFX`, `Flash` | Motion-blurred whip pans between scenes, VHS time-reversal, impact flashes |
+| `Space3D` `declutter` | Labels fade where they would collide with a higher-priority label |
+| `motion.ts` | `remap`, `shake`, `shutterSamples`, `squashStretch`, `stepValue` |
 
-Sound: `scripts/audio/sfxlib.py` synthesises whooshes, camera flights, impacts, risers, glitches,
-pops, typing, beams, swells and a music bed (kick, hats, sub, pad, pluck arpeggio) from code.
+Sound: `scripts/audio/sfxlib.py` synthesises everything from code: whooshes, flights, impacts,
+risers, glitches, pops, typing, beams, swells and two music engines (v1 bed; v2 production tools:
+punchy kick, clap, 808-style hats, saturated sub, FM plucks and bells, supersaw pads, convolution
+reverb, sidechain pump, tape stop, voice ducking, limiter, loudness metering). A reel's sound
+script reads its timeline through `scripts/audio/cues.mjs`, so the score is cut to the picture.
 
 ## Layout
 
@@ -59,7 +70,7 @@ pops, typing, beams, swells and a music bed (kick, hats, sub, pad, pluck arpeggi
 src/
   kit/                    shared house style + components (above)
   reels/
-    _template/            copied by `npm run new`
+    template/             copied by `npm run new`
     model-collapse/       reel 001
     attention-bank/       reel 002 — one continuous camera world
       timeline.ts         every time in SECONDS, camera keys, asset flags, SFX cues
@@ -70,28 +81,43 @@ src/
   Root.tsx                registers all reels (new-reel.mjs edits it)
 public/
   fonts/
-  reels/<slug>/           vo.mp3, music.mp3, sfx/, broll/, captions.json
+  reels/<slug>/           vo.mp3, vo/, music.mp3, mix.mp3, sfx/, broll/, generated.json
 scripts/
-  new-reel.mjs  render.mjs  stills.mjs  check.mjs  sheet.py  chrome.mjs
-  audio/                  sfxlib.py + one sound script per reel
+  new-reel.mjs  render.mjs  stills.mjs  check.mjs  preview.mjs  sheet.py  chrome.mjs
+  audio/                  sfxlib.py, cues.mjs + one sound script per reel
+  gen/                    heygen.mjs, higgsfield.mjs, kokoro_tts.py, align.py, vo-assemble.mjs
 docs/
   playbook.md             ranking signals, rules, formats, concept bank
   reels/                  one brief per reel (script, caption, fact sheet)
 ```
 
-## Adding a voiceover to a reel
+## Voice, sound and generated assets
 
-1. Save it as `public/reels/<slug>/vo.mp3` and set `USE_VO = true` in the reel's `timeline.ts`
-   (music ducks automatically).
-2. Put the word timings in `src/reels/<slug>/words.json` as `[{ "text", "start", "end" }]`
-   (seconds; any speech-to-text with word timestamps produces this). Cues written with
-   `cue("word", nth, fallback)` then snap to the real delivery. Adjust any others by hand.
-3. `npm run check -- <CompId>` to eyeball it, then `npm run render -- <slug>`.
+Reels are voice-driven: `src/reels/<slug>/vo.json` holds the English lines; each beat starts on a
+line (`vo-lines.json`) and `cue("word")` lands animation on spoken words (`words.json`). Any of
+these produces the voice, places it on the beats and writes both files:
+
+| Voice | Command | Needs |
+| --- | --- | --- |
+| HeyGen (your cloned voice) | *Generate reel assets* workflow, task `voice` | `HEYGEN_API_KEY`, `HEYGEN_VOICE_ID` secrets |
+| Kokoro (offline scratch voice) | `python3 scripts/gen/kokoro_tts.py <slug>` or workflow task `voice-local` | `pip install kokoro-onnx soundfile pocketsphinx` |
+| A human recording | `node scripts/gen/vo-assemble.mjs <slug> take.m4a` | one take, 1–2 s pauses between lines |
+
+Then re-run the reel's sound script (`python3 scripts/audio/<slug>.py`; the workflow does it):
+it re-cuts the score to the new beats, ducks it under the voice and masters `mix.mp3`
+(-14 LUFS, -1.5 dBFS), which the reel plays when `USE_MIX` is on in `timeline.ts`.
+
+The *Generate reel assets* workflow (`.github/workflows/generate.yml`, Actions tab, must be on the
+default branch to be dispatchable) also makes HeyGen presenter clips (`presenter.json`) and
+Higgsfield / Kling 3.0 b-roll (`shots.json`), and commits everything back. Keys stay in repo
+secrets: `HEYGEN_API_KEY`, `HEYGEN_VOICE_ID`, `HEYGEN_AVATAR_ID`, `HIGGSFIELD_API_KEY_ID`,
+`HIGGSFIELD_API_KEY_SECRET`. Flip the reel's `BROLL` / `PRESENTER` flags once the files exist.
 
 ## B-roll
 
-Generate clips in Kling or Higgsfield (9:16, ~5 s, no text in the prompt), save them in
-`public/reels/<slug>/broll/`, and wire them in with `OffthreadVideo` behind a flag.
+Describe shots in `src/reels/<slug>/shots.json` (9:16, no text, no logos, no people) and run the
+workflow task `shots`, or generate by hand in Kling or Higgsfield and save them in
+`public/reels/<slug>/broll/`. Wire them in with `OffthreadVideo` behind a flag.
 
 ## Rendering notes
 

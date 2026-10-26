@@ -17,9 +17,9 @@ jobs:
       - run: npm test
       - name: Render key storyboard frames
         run: |
-          npm run preview -- gradient-descent 0 4.5 9.8 13 17 22 28 33 35
-          npm run preview -- attention-bank 23.9 26.5 29 44.8 45.3
-      - name: Render silent motion-review video
+          npm run preview -- gradient-descent 0 1.4 2.4 3.9 9.9 14.5 19.5 23.5 27 28.3 30.5 32.3 37 39.8 42.6
+          npm run preview -- attention-bank 26 28.2 32 44 45.3 46.9
+      - name: Render motion-review video (half size, with the mastered mix)
         run: |
           mkdir -p out/review
           npx remotion render GradientDescent out/review/gradient-descent-review.mp4 --scale=0.5 --codec=h264 --crf=22

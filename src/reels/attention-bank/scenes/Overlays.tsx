@@ -103,8 +103,7 @@ export const Overlays: React.FC<{ t: number }> = ({ t }) => {
       {/* 7 takeaway */}
       <Headline t={t} start={CUES.takeaway.headline} lines={copy.takeaway.headline} top={300} size={88} stagger={0.12} exit={CUES.cta.text - 0.3} />
 
-      {/* 8 CTA: masked wipe clears type before the camera returns to BANK. */}
-      <div style={{ position: "absolute", inset: 0, clipPath: "inset(0 " + (100 * prog(t, 44.1, 44.7)).toFixed(1) + "% 0 0)" }}>
+      {/* 8 CTA */}
       <Headline t={t} start={CUES.cta.text} lines={copy.cta.headline} top={330} size={88} stagger={0.1} align="center" exit={ctaOut} />
       {comment > 0 && t < ctaOut + 0.3 ? (
         <div
@@ -130,7 +129,6 @@ export const Overlays: React.FC<{ t: number }> = ({ t }) => {
           <DownArrow bounce={Math.abs(Math.sin((t - CUES.cta.comment) * Math.PI * 1.8)) * 12} />
         </div>
       ) : null}
-      </div>
     </>
   );
 };

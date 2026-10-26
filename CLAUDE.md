@@ -21,7 +21,9 @@ writing a script.
   payoff (a screenshot moment) → re-hook every 7–10 s → twist → one-word comment CTA →
   last frame matches the first so the reel loops. Target 30–45 s.
 - **No generated text inside video clips.** Words, numbers and diagrams are drawn in code;
-  Kling/Higgsfield only supply mood B-roll.
+  Kling/Higgsfield only supply mood B-roll (`shots.json`), HeyGen only the voice and an optional
+  presenter clip (`presenter.json`). Generation runs in the *Generate reel assets* workflow with
+  repo secrets; never put keys in code, chat or commits.
 
 ## Building a reel
 
@@ -38,9 +40,15 @@ writing a script.
 5. Start with `npm run preview -- <slug>` for quick frame review; use `npm run check -- <CompId>` and look at every contact sheet: text inside the safe zone, no
    overlaps, flights readable, peak-effect frames legible, cover, and the loop number (< ~6).
    Fix, re-check the changed frames with `npm run stills`, then render.
-6. Sound: add a `scripts/audio/<slug>.py` using `sfxlib.py`; cue files in `timeline.ts`.
-7. `npm run render -- <slug>` (background it). Deliver `out/<slug>/<slug>.mp4` and `cover.png`.
-8. Update the table in `README.md` and the reel's brief.
+6. Voice: put the English lines in `vo.json`; generate with HeyGen (workflow task `voice`), Kokoro
+   (`scripts/gen/kokoro_tts.py`, offline) or a recording (`scripts/gen/vo-assemble.mjs`). Beats come
+   from `vo-lines.json`; land animation on words with `cue()`. Re-check frames after any new voice.
+7. Sound: add a `scripts/audio/<slug>.py` using `sfxlib.py` (see `gradient_descent.py`): read the
+   timeline with `cues.mjs`, give every on-screen event a sound, score in blocks that start on cuts,
+   duck stems under the voice, master `mix.mp3` (-14 LUFS) and set `USE_MIX`. Re-run it whenever the
+   voice or timeline changes. SFX cues and volumes live in `timeline.ts`.
+8. `npm run render -- <slug>` (background it). Deliver `out/<slug>/<slug>.mp4` and `cover.png`.
+9. Update the table in `README.md` and the reel's brief.
 
 ## Gotchas
 
@@ -50,8 +58,11 @@ writing a script.
 - Film grain makes masters big (~600 MB for 54 s at CRF 18); the render script's upload copy is
   ~110 MB. Never commit `out/`.
 - A 54 s reel takes ~8 min to render with 2 CPUs; run it in the background.
-- Hugging Face is unreachable from the sandbox, so real model weights/attention can't be computed
-  there; label illustrative numbers as such.
+- Hugging Face, HeyGen and Higgsfield are unreachable from the sandbox; GitHub releases are
+  reachable (Kokoro's model files come from there into `.cache/kokoro`). Label illustrative
+  numbers as such.
+- Kokoro voices: `af_heart` is the highest quality; PocketSphinx aligns words offline (`align.py`);
+  add missing words to `EXTRA` there as ARPAbet.
 - `Camera` motion blur is directional (from screen-space velocity); very fast snaps are best
   hidden under a `Glitch` cut.
 - Token chips use JetBrains Mono so widths are exact (0.6 em per character); keep sentences
