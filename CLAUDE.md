@@ -34,7 +34,7 @@ writing a script.
    Animation must be a pure function of time (`t` in seconds). Use `rand(seed)`, never `Math.random()`.
 4. When the camera leaves a station, fade that station out, or its content will collide with
    the next beat's headline. Bring it back for fly-overs.
-5. `npm run check -- <CompId>` and look at every contact sheet: text inside the safe zone, no
+5. Start with `npm run preview -- <slug>` for quick frame review; use `npm run check -- <CompId>` and look at every contact sheet: text inside the safe zone, no
    overlaps, flights readable, peak-effect frames legible, cover, and the loop number (< ~6).
    Fix, re-check the changed frames with `npm run stills`, then render.
 6. Sound: add a `scripts/audio/<slug>.py` using `sfxlib.py`; cue files in `timeline.ts`.

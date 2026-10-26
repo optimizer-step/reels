@@ -1,0 +1,11 @@
+import { FPS as BASE_FPS } from "../../kit";
+export const FPS = BASE_FPS;
+export const DURATION_S = 36;
+export const DURATION_FRAMES = Math.round(DURATION_S * FPS);
+export const FIRST_STEP_AT = 9.6;
+export const SECONDS_PER_STEP = 1.65;
+export const PAIRS_FINISH_AT = FIRST_STEP_AT + 8 * SECONDS_PER_STEP;
+export const ASSETS = "reels/gradient-descent";
+export const USE_VO = false;
+export const USE_MUSIC = false;
+export const USE_SFX = false;

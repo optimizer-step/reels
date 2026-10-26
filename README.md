@@ -8,6 +8,7 @@ so every word, number and timing is exact and editable.
 | --- | --- | --- | --- | --- |
 | 001 | AI is eating its own homework (model collapse) | `src/reels/model-collapse` | 54 s | Rendered, awaiting voiceover |
 | 002 | SBI or river bank? How AI decides (attention) | `src/reels/attention-bank` | 47 s | Rendered, awaiting voiceover |
+| 003 | Why AI overshoots (gradient descent, two exact runs) | `src/reels/gradient-descent` | 36 s | Code complete; needs visual QA, VO and final render |
 
 Briefs, scripts and fact sheets: `docs/reels/`. Strategy and concept bank: `docs/playbook.md`.
 
@@ -17,6 +18,8 @@ Briefs, scripts and fact sheets: `docs/reels/`. Strategy and concept bank: `docs
 npm install
 npm run studio                          # live preview of every reel
 npm run new -- overfitting-exam         # start a new reel from the template
+npm run preview -- gradient-descent         # quick isolated frames + cover (no video encode)
+npm run test                             # numerical trajectory tests
 npm run check -- AttentionBank          # contact sheets every 2 s + loop check (no video render)
 npm run render -- attention-bank        # -> out/attention-bank/{attention-bank.mp4, master.mp4, cover.png}
 npm run stills -- AttentionBank 15 300  # specific frames -> out/stills/AttentionBank/

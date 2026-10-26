@@ -8,7 +8,9 @@
     "render": "node scripts/render.mjs",
     "stills": "node scripts/stills.mjs",
     "check": "node scripts/check.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "preview": "node scripts/preview.mjs",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
   },
   "dependencies": {
     "@fontsource/jetbrains-mono": "^5.3.0",

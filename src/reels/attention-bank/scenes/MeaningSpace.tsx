@@ -54,7 +54,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
       p: fit(p),
       color,
       r: 0.055,
-      label: w,
+      label: i < 3 ? w : undefined, // avoid the crowded 3D label stack
       labelSize: 0.13,
       opacity: prog(t, C.reveal + 0.3 + k * 0.25 + i * 0.05, C.reveal + 0.7 + k * 0.25 + i * 0.05),
       glow: 0.6,
@@ -68,7 +68,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
       p: fit(p),
       color: COLORS.grey,
       r: 0.04,
-      label: w,
+      label: undefined, // ambient points contribute depth without unreadable micro-labels
       labelSize: 0.1,
       opacity: 0.75 * prog(t, C.reveal + 0.8 + i * 0.05, C.reveal + 1.2 + i * 0.05),
     })),
