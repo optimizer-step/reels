@@ -15,3 +15,14 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
+      - name: Render key storyboard frames
+        run: |
+          npm run preview -- gradient-descent 0 4.5 9.8 13 17 22 28 33 35
+          npm run preview -- attention-bank 23.9 26.5 29 44.8 45.3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reel-frame-preview
+          path: out/preview/
+          if-no-files-found: warn
+          retention-days: 7
