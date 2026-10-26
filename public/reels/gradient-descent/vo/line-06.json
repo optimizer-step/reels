@@ -1,0 +1,49 @@
+{
+ "file": "line-06.mp3",
+ "text": "Just right? It lands right on target.",
+ "duration": 2.088,
+ "words": [
+  {
+   "text": "Just",
+   "start": 0.0,
+   "end": 0.3
+  },
+  {
+   "text": "right?",
+   "start": 0.31,
+   "end": 0.72
+  },
+  {
+   "text": "It",
+   "start": 0.73,
+   "end": 0.82
+  },
+  {
+   "text": "lands",
+   "start": 0.83,
+   "end": 1.13
+  },
+  {
+   "text": "right",
+   "start": 1.14,
+   "end": 1.36
+  },
+  {
+   "text": "on",
+   "start": 1.37,
+   "end": 1.46
+  },
+  {
+   "text": "target.",
+   "start": 1.47,
+   "end": 2.04
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.08,
+  "text": "Just right? It lands right on target.",
+  "say": null
+ }
+}

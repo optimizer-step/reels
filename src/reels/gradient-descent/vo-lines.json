@@ -1,1 +1,72 @@
-[]
+[
+  {
+    "i": 1,
+    "file": "line-01.mp3",
+    "start": 0.05,
+    "end": 2.978,
+    "text": "One wrong number… and the whole AI training crashes."
+  },
+  {
+    "i": 2,
+    "file": "line-02.mp3",
+    "start": 3.278,
+    "end": 4.55,
+    "text": "Wait. Let's rewind."
+  },
+  {
+    "i": 3,
+    "file": "line-03.mp3",
+    "start": 4.85,
+    "end": 11.282,
+    "text": "AI learns by walking downhill. High means very wrong. Low, less wrong. The bottom is the right answer."
+  },
+  {
+    "i": 4,
+    "file": "line-04.mp3",
+    "start": 11.582,
+    "end": 17.654,
+    "text": "Each step, it checks the slope and multiplies it by one number: the learning rate. It sets how big each step is."
+  },
+  {
+    "i": 5,
+    "file": "line-05.mp3",
+    "start": 17.954,
+    "end": 21.002,
+    "text": "Too small? It inches along… and barely gets anywhere."
+  },
+  {
+    "i": 6,
+    "file": "line-06.mp3",
+    "start": 22.304,
+    "end": 24.392,
+    "text": "Just right? It lands right on target."
+  },
+  {
+    "i": 7,
+    "file": "line-07.mp3",
+    "start": 25.304,
+    "end": 28.4,
+    "text": "Too big? It bounces wall to wall… and flies right out."
+  },
+  {
+    "i": 8,
+    "file": "line-08.mp3",
+    "start": 29.854,
+    "end": 32.326,
+    "text": "Same problem. Only one number changed."
+  },
+  {
+    "i": 9,
+    "file": "line-09.mp3",
+    "start": 33.854,
+    "end": 40.262,
+    "text": "That's why big models like GPT-3 don't use one fixed number. They warm up, peak, then slow down."
+  },
+  {
+    "i": 10,
+    "file": "line-10.mp3",
+    "start": 40.562,
+    "end": 43.634,
+    "text": "Comment a learning rate, and I'll run yours in the next reel."
+  }
+]

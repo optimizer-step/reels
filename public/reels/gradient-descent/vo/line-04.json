@@ -1,0 +1,124 @@
+{
+ "file": "line-04.mp3",
+ "text": "Each step, it checks the slope and multiplies it by one number: the learning rate. It sets how big each step is.",
+ "duration": 6.072,
+ "words": [
+  {
+   "text": "Each",
+   "start": 0.0,
+   "end": 0.2
+  },
+  {
+   "text": "step,",
+   "start": 0.21,
+   "end": 0.56
+  },
+  {
+   "text": "it",
+   "start": 0.57,
+   "end": 0.68
+  },
+  {
+   "text": "checks",
+   "start": 0.69,
+   "end": 1.01
+  },
+  {
+   "text": "the",
+   "start": 1.02,
+   "end": 1.09
+  },
+  {
+   "text": "slope",
+   "start": 1.1,
+   "end": 1.49
+  },
+  {
+   "text": "and",
+   "start": 1.5,
+   "end": 1.67
+  },
+  {
+   "text": "multiplies",
+   "start": 1.68,
+   "end": 2.3
+  },
+  {
+   "text": "it",
+   "start": 2.31,
+   "end": 2.4
+  },
+  {
+   "text": "by",
+   "start": 2.41,
+   "end": 2.55
+  },
+  {
+   "text": "one",
+   "start": 2.56,
+   "end": 2.76
+  },
+  {
+   "text": "number:",
+   "start": 2.77,
+   "end": 3.17
+  },
+  {
+   "text": "the",
+   "start": 3.29,
+   "end": 3.38
+  },
+  {
+   "text": "learning",
+   "start": 3.39,
+   "end": 3.75
+  },
+  {
+   "text": "rate.",
+   "start": 3.76,
+   "end": 4.05
+  },
+  {
+   "text": "It",
+   "start": 4.44,
+   "end": 4.56
+  },
+  {
+   "text": "sets",
+   "start": 4.57,
+   "end": 4.8
+  },
+  {
+   "text": "how",
+   "start": 4.81,
+   "end": 5.0
+  },
+  {
+   "text": "big",
+   "start": 5.01,
+   "end": 5.25
+  },
+  {
+   "text": "each",
+   "start": 5.26,
+   "end": 5.41
+  },
+  {
+   "text": "step",
+   "start": 5.42,
+   "end": 5.64
+  },
+  {
+   "text": "is.",
+   "start": 5.65,
+   "end": 6.03
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.08,
+  "text": "Each step, it checks the slope and multiplies it by one number: the learning rate. It sets how big each step is.",
+  "say": null
+ }
+}

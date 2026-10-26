@@ -1,0 +1,59 @@
+{
+ "file": "line-01.mp3",
+ "text": "One wrong number\u2026 and the whole AI training crashes.",
+ "duration": 2.928,
+ "words": [
+  {
+   "text": "One",
+   "start": 0.0,
+   "end": 0.21
+  },
+  {
+   "text": "wrong",
+   "start": 0.22,
+   "end": 0.51
+  },
+  {
+   "text": "number\u2026",
+   "start": 0.52,
+   "end": 0.86
+  },
+  {
+   "text": "and",
+   "start": 0.87,
+   "end": 1.18
+  },
+  {
+   "text": "the",
+   "start": 1.19,
+   "end": 1.24
+  },
+  {
+   "text": "whole",
+   "start": 1.25,
+   "end": 1.6
+  },
+  {
+   "text": "AI",
+   "start": 1.61,
+   "end": 1.93
+  },
+  {
+   "text": "training",
+   "start": 1.94,
+   "end": 2.28
+  },
+  {
+   "text": "crashes.",
+   "start": 2.29,
+   "end": 2.89
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.08,
+  "text": "One wrong number\u2026 and the whole AI training crashes.",
+  "say": null
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "file": "line-05.mp3",
+ "text": "Too small? It inches along\u2026 and barely gets anywhere.",
+ "duration": 3.048,
+ "words": [
+  {
+   "text": "Too",
+   "start": 0.0,
+   "end": 0.15
+  },
+  {
+   "text": "small?",
+   "start": 0.16,
+   "end": 0.63
+  },
+  {
+   "text": "It",
+   "start": 0.86,
+   "end": 0.95
+  },
+  {
+   "text": "inches",
+   "start": 0.96,
+   "end": 1.31
+  },
+  {
+   "text": "along\u2026",
+   "start": 1.32,
+   "end": 1.7
+  },
+  {
+   "text": "and",
+   "start": 1.71,
+   "end": 1.88
+  },
+  {
+   "text": "barely",
+   "start": 1.89,
+   "end": 2.21
+  },
+  {
+   "text": "gets",
+   "start": 2.22,
+   "end": 2.48
+  },
+  {
+   "text": "anywhere.",
+   "start": 2.49,
+   "end": 3.0
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.08,
+  "text": "Too small? It inches along\u2026 and barely gets anywhere.",
+  "say": null
+ }
+}

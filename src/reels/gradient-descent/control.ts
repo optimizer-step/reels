@@ -18,14 +18,48 @@ export const sliderValue = (t: number): number => {
   if (t >= CUES.small.knob) v = lerp(0.12, RATES.small, outBack(prog(t, CUES.small.knob, CUES.small.knob + 0.35)));
   if (t >= CUES.right.knob) v = lerp(RATES.small, RATES.right, outBack(prog(t, CUES.right.knob, CUES.right.knob + 0.3)));
   if (t >= CUES.big.knob) v = lerp(RATES.right, RATES.big, outBack(prog(t, CUES.big.knob, CUES.big.knob + 0.14)));
-  if (t >= BEATS.twist.start) v = lerp(RATES.big, 0, prog(t, BEATS.twist.start, CUES.twist.curve[0]));
+  // twist: one fixed number (0.18) ... then the knob drops and rides the schedule
+  if (t >= BEATS.twist.start) v = lerp(RATES.big, RATES.right, outBack(prog(t, BEATS.twist.start, BEATS.twist.start + 0.35)));
+  if (t >= CUES.twist.curve[0] - 0.3) v = lerp(RATES.right, 0, ease.inOut(prog(t, CUES.twist.curve[0] - 0.3, CUES.twist.curve[0])));
   if (t >= CUES.twist.curve[0]) v = RATES.right * schedule(scheduleHead(t));
   if (t >= BEATS.cta.start) v = lerp(RATES.right * schedule(1), 0.15 + 0.08 * Math.sin((t - BEATS.cta.start) * 2.2), prog(t, BEATS.cta.start, BEATS.cta.start + 0.5));
   return v;
 };
 
-/** Progress of the schedule curve's head (0..1) in the twist beat. */
-export const scheduleHead = (t: number) => ease.inOut(prog(t, CUES.twist.curve[0], CUES.twist.curve[1]));
+/** Progress of the schedule curve's head (0..1) in the twist beat: piecewise through the spoken keys,
+ * easing in at the start and out at the end. */
+export const scheduleHead = (t: number) => {
+  const K = CUES.twist.keys;
+  if (t <= K[0][0]) return 0;
+  if (t >= K[K.length - 1][0]) return 1;
+  let i = 0;
+  while (t > K[i + 1][0]) i++;
+  const [ta, ua] = K[i];
+  const [tb, ub] = K[i + 1];
+  const p = (t - ta) / (tb - ta);
+  const shaped = i === 0 ? ease.in(p) * 0.5 + p * 0.5 : i === K.length - 2 ? ease.out(p) : p;
+  return lerp(ua, ub, shaped);
+};
+
+/** When the schedule head reaches u (inverse of scheduleHead), for label timing. */
+export const scheduleTime = (u: number) => {
+  const K = CUES.twist.keys;
+  for (let i = 0; i < K.length - 1; i++) {
+    const [ta] = K[i];
+    const [tb, ub] = K[i + 1];
+    if (u <= ub) {
+      let lo = ta;
+      let hi = tb;
+      for (let n = 0; n < 30; n++) {
+        const mid = (lo + hi) / 2;
+        if (scheduleHead(mid) < u) lo = mid;
+        else hi = mid;
+      }
+      return hi;
+    }
+  }
+  return K[K.length - 1][0];
+};
 
 export const sliderColor = (v: number) => (v > 0.2 ? COLORS.red : v < 0.07 ? COLORS.blue : COLORS.yellow);
 

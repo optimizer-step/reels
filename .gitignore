@@ -3,3 +3,5 @@ out/
 *.log
 .DS_Store
 public/reels/*/vo.mp3.bak
+.cache/
+__pycache__/

@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Audio, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, OffthreadVideo, staticFile, useCurrentFrame } from "remotion";
 import { Backdrop, COLORS, Flash, Glitch, Grain, Headline, ReelAudio, RewindFX, SHOW_SAFE_ZONE, SafeZoneOverlay, Vignette, WhipPan, ensureFonts, shake } from "../../kit";
 import { copy } from "./copy";
 import { sliderValue } from "./control";
@@ -18,6 +18,7 @@ import {
   MUSIC_VOLUME,
   SFX_CUES,
   USE_MUSIC,
+  USE_MIX,
   USE_SFX,
   USE_VO,
 } from "./timeline";
@@ -79,13 +80,17 @@ export const GradientDescentReel: React.FC = () => {
       <Grain frame={frame} light={0.06} dark={0.09} />
       <Vignette strength={0.5} />
       {SHOW_SAFE_ZONE ? <SafeZoneOverlay /> : null}
-      <ReelAudio
-        dir={ASSETS}
-        duration={DURATION_S}
-        vo={{ enabled: USE_VO }}
-        music={{ enabled: USE_MUSIC, volume: MUSIC_VOLUME, silences: MUSIC_SILENCES }}
-        sfx={{ enabled: USE_SFX, cues: SFX_CUES }}
-      />
+      {USE_MIX ? (
+        <Audio src={staticFile(`${ASSETS}/mix.mp3`)} />
+      ) : (
+        <ReelAudio
+          dir={ASSETS}
+          duration={DURATION_S}
+          vo={{ enabled: USE_VO }}
+          music={{ enabled: USE_MUSIC, volume: MUSIC_VOLUME, silences: MUSIC_SILENCES }}
+          sfx={{ enabled: USE_SFX, cues: SFX_CUES }}
+        />
+      )}
     </AbsoluteFill>
   );
 };
@@ -108,4 +113,3 @@ export const GradientDescentCover: React.FC = () => {
   );
 };
 
-export { Audio, Sequence };

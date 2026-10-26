@@ -1,6 +1,8 @@
 {
   "language": "en",
   "speed": 1.0,
+  "kokoro_voice": "af_heart",
+  "kokoro_speed": 1.08,
   "gap": 0.3,
   "lines": [
     {
@@ -12,11 +14,11 @@
       "hold": 1.35
     },
     {
-      "text": "AI learns by walking downhill. Up high, it's very wrong. Down low, less wrong. And the very bottom — that's the right answer.",
+      "text": "AI learns by walking downhill. High means very wrong. Low, less wrong. The bottom is the right answer.",
       "hold": 5.8
     },
     {
-      "text": "At every step, it checks the slope and multiplies it by one number — the learning rate. That number decides how big each step is.",
+      "text": "Each step, it checks the slope and multiplies it by one number: the learning rate. It sets how big each step is.",
       "hold": 6.0
     },
     {
@@ -36,12 +38,12 @@
       "hold": 4.0
     },
     {
-      "text": "That's why big models like GPT-3 don't stick to one number. They warm up slowly, peak, then slow down.",
+      "text": "That's why big models like GPT-3 don't use one fixed number. They warm up, peak, then slow down.",
       "hold": 5.55
     },
     {
       "text": "Comment a learning rate, and I'll run yours in the next reel."
     }
   ],
-  "notes": "hold = minimum seconds from this line's start to the next line's start (the beat length). Lines that run long stretch their beat."
+  "notes": "hold = minimum seconds from this line's start to the next line's start (the beat length). Lines that run long stretch their beat. kokoro_voice/kokoro_speed are for the offline voice (scripts/gen/kokoro_tts.py); speed is for HeyGen."
 }

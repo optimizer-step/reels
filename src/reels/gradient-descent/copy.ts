@@ -32,6 +32,7 @@ export const copy = {
     headline: [["BIG", "MODELS", "WARM", "UP,"], ["THEN", "*SLOW*", "*DOWN*"]],
     yLabel: "LEARNING RATE",
     xLabel: "TRAINING TIME",
+    fixed: "ONE FIXED NUMBER",
     warm: "WARM UP",
     peak: "PEAK",
     decay: "SLOW DOWN",

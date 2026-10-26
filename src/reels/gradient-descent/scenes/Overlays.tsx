@@ -59,7 +59,9 @@ const Formula: React.FC<{ t: number }> = ({ t }) => {
 /** Run HUD: step and loss counters across the top. */
 const Hud: React.FC<{ t: number }> = ({ t }) => {
   const r = hudReadout(t);
-  const appear = Math.min(prog(t, BEATS.small.start, BEATS.small.start + 0.3), 1 - prog(t, BEATS.chart.start - 0.05, BEATS.chart.start + 0.15));
+  // hidden while the tape rewinds (the REWIND tag sits in the same corner)
+  const rw = [BEATS.rewind2, BEATS.rewind3].reduce((m, w) => Math.max(m, Math.min(prog(t, w.start - 0.12, w.start), 1 - prog(t, w.end - 0.05, w.end + 0.1))), 0);
+  const appear = Math.min(prog(t, BEATS.small.start, BEATS.small.start + 0.3), 1 - prog(t, BEATS.chart.start - 0.05, BEATS.chart.start + 0.15), 1 - rw);
   if (!r || appear <= 0) return null;
   const big = r.loss >= 100;
   return (

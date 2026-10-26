@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, OffthreadVideo, staticFile } from "remotion";
 import { Arrow, Burst, COLORS, FONTS, Glitch, Headline, LineChart, SAFE, Tag, ease, lerp, prog, springAt, type Series } from "../../../kit";
 import { copy } from "../copy";
-import { scheduleHead } from "../control";
+import { scheduleHead, scheduleTime } from "../control";
 import { RATES, run, schedule } from "../math";
 import { ASSETS, BEATS, BROLL, CUES, PRESENTER } from "../timeline";
 
@@ -118,8 +118,13 @@ export const Board: React.FC<{ t: number }> = ({ t }) => {
   const crack = breakoutHit ? 1 - prog(t, C.breakout + 0.6, C.breakout + 1.2) : 0;
   const yTicksO = 1 - prog(t, T.morph, T.morph + 0.4);
 
-  // labels along the schedule
-  const lab = (u: number) => (head >= u ? springAt(t, T.curve[0] + (T.curve[1] - T.curve[0]) * u) : 0);
+  // labels along the schedule pop as the head passes them
+  const lab = (u: number) => (head >= u ? springAt(t, scheduleTime(u)) : 0);
+  // "one fixed number": a flat dashed line at the peak rate, then a faint reference once the schedule draws
+  const fixedDraw = ease.inOut(prog(t, T.fixed, T.fixed + 0.55));
+  const fixedDim = prog(t, T.curve[0] - 0.2, T.curve[0] + 0.3);
+  const fixedO = (1 - 0.7 * fixedDim) * (1 - prog(t, BEATS.cta.start - 0.3, BEATS.cta.start));
+  const fixedLabelO = t >= T.fixed + 0.25 ? springAt(t, T.fixed + 0.25) * (1 - fixedDim) : 0;
 
   const board = (
     <AbsoluteFill style={{ opacity: 1 - ctaIn, transform: `scale(${1 - 0.08 * ctaIn})`, filter: ctaIn > 0.02 ? `blur(${(ctaIn * 10).toFixed(1)}px)` : undefined }}>
@@ -199,6 +204,18 @@ export const Board: React.FC<{ t: number }> = ({ t }) => {
             <Arrow width={44} color={COLORS.red} />
             {copy.chart.breakout.to}
           </div>
+        </div>
+      ) : null}
+
+      {/* one fixed number */}
+      {fixedDraw > 0.001 && fixedO > 0.001 ? (
+        <svg width={1080} height={1920} style={{ position: "absolute", inset: 0, opacity: fixedO }}>
+          <line x1={sx(0)} y1={sy(10)} x2={sx(0) + (sx(X_MAX) - sx(0)) * fixedDraw} y2={sy(10)} stroke={COLORS.text} strokeWidth={5} strokeDasharray="14 12" strokeLinecap="round" />
+        </svg>
+      ) : null}
+      {fixedLabelO > 0.001 ? (
+        <div style={{ position: "absolute", right: 1080 - sx(X_MAX), top: sy(10) - 52, fontFamily: FONTS.mono, fontWeight: 700, fontSize: 30, color: COLORS.text, opacity: fixedLabelO, transform: `translateY(${(1 - fixedLabelO) * 12}px)` }}>
+          {copy.twist.fixed}
         </div>
       ) : null}
 

@@ -86,6 +86,16 @@ const splitRecording = (file, nLines, outDir) => {
 if (process.argv[1] && process.argv[1].endsWith("vo-assemble.mjs")) {
   const [slugArg, rec] = process.argv.slice(2);
   const { slug, srcDir, pubDir } = requireSlug(slugArg);
+  const vo0 = JSON.parse(fs.readFileSync(path.join(srcDir, "vo.json"), "utf8"));
+  if (rec === "--lines") {
+    // per-line clips already in public/reels/<slug>/vo (line-NN.json beside each clip, e.g. from kokoro_tts.py)
+    const lines = vo0.lines.map((L, i) => {
+      const meta = JSON.parse(fs.readFileSync(path.join(pubDir, "vo", `line-${String(i + 1).padStart(2, "0")}.json`), "utf8"));
+      return { ...meta, file: path.join(pubDir, "vo", meta.file), text: meta.text ?? L.text, hold: L.hold };
+    });
+    assemble({ slug, srcDir, pubDir, gap: vo0.gap ?? 0.35, lines });
+    process.exit(0);
+  }
   if (!rec || !fs.existsSync(rec)) {
     console.error("usage: node scripts/gen/vo-assemble.mjs <slug> <recording file>");
     process.exit(1);
