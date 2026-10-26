@@ -6,8 +6,9 @@ writing a script.
 
 ## House rules
 
-- **Language:** voiceover in Hinglish (Roman script); all on-screen text in English, so the reel
-  reads on mute.
+- **Language: English, always.** Voiceover and all on-screen text are in English (Venkatesh's
+  standing rule). Reels 001–002 were scripted in Hinglish before this rule; convert them to English
+  before recording.
 - **Accuracy over magnetism.** Every claim on screen must match its source. Keep a fact sheet
   with links in `docs/reels/<nnn>-<slug>.md`, credit quoted material on screen, and never
   overstate (e.g. "a lab test on a small model", not "ChatGPT collapsed").
@@ -24,7 +25,7 @@ writing a script.
 
 ## Building a reel
 
-1. Write the brief first in `docs/reels/<nnn>-<slug>.md`: script table (time, Hinglish VO,
+1. Write the brief first in `docs/reels/<nnn>-<slug>.md`: script table (time, English VO,
    on-screen text, visual), caption, pinned comment and fact sheet with links. Label any
    made-up numbers as an illustration, on screen and in the brief.
 2. `npm run new -- <slug>`; write `copy.ts` (all strings) and `timeline.ts` (all times, seconds;

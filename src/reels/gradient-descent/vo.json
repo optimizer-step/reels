@@ -1,0 +1,47 @@
+{
+  "language": "en",
+  "speed": 1.0,
+  "gap": 0.3,
+  "lines": [
+    {
+      "text": "One wrong number… and the whole AI training crashes.",
+      "hold": 2.5
+    },
+    {
+      "text": "Wait. Let's rewind.",
+      "hold": 1.35
+    },
+    {
+      "text": "AI learns by walking downhill. Up high, it's very wrong. Down low, less wrong. And the very bottom — that's the right answer.",
+      "hold": 5.8
+    },
+    {
+      "text": "At every step, it checks the slope and multiplies it by one number — the learning rate. That number decides how big each step is.",
+      "hold": 6.0
+    },
+    {
+      "text": "Too small? It inches along… and barely gets anywhere.",
+      "hold": 4.35
+    },
+    {
+      "text": "Just right? It lands right on target.",
+      "hold": 3.0
+    },
+    {
+      "text": "Too big? It bounces wall to wall… and flies right out.",
+      "hold": 4.55
+    },
+    {
+      "text": "Same problem. Only one number changed.",
+      "hold": 4.0
+    },
+    {
+      "text": "That's why big models like GPT-3 don't stick to one number. They warm up slowly, peak, then slow down.",
+      "hold": 5.55
+    },
+    {
+      "text": "Comment a learning rate, and I'll run yours in the next reel."
+    }
+  ],
+  "notes": "hold = minimum seconds from this line's start to the next line's start (the beat length). Lines that run long stretch their beat."
+}

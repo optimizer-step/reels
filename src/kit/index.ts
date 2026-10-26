@@ -31,3 +31,14 @@ export type { TokenBox, TokenState } from "./components/Tokens";
 export { AttentionBeams } from "./components/Attention";
 export { Heatmap } from "./components/Heatmap";
 export { DecodeText, DustField, Burst, Glitch, glow } from "./components/Effects";
+
+// v3: editing craft — time remaps, shake, motion blur, terrain, controls, counters, charts
+export { remap, shake, shutterSamples, squashStretch, stepValue } from "./motion";
+export type { TimeKey, Impact } from "./motion";
+export { Terrain, makeProjector, ramp } from "./components/Terrain";
+export type { OrbitCam, V3, Projected, TerrainProps } from "./components/Terrain";
+export { RewindFX, WhipPan, Flash } from "./components/Transitions";
+export { Odometer } from "./components/Odometer";
+export { Slider } from "./components/Slider";
+export { LineChart } from "./components/LineChart";
+export type { Series } from "./components/LineChart";

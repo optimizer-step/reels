@@ -20,7 +20,7 @@ Sources: [Hootsuite, Instagram algorithm 2026](https://blog.hootsuite.com/instag
 3. A screenshot moment: absurd but true (the jackrabbits). That is what gets sent.
 4. A re-hook every 7–10 s: new visual, a question, a counter ticking.
 5. Loop ending: last frame = first frame.
-6. Hinglish voice, English on-screen text.
+6. English voice and English on-screen text, always.
 
 ## Formats that work in this niche
 
@@ -46,8 +46,8 @@ Sources: [Hootsuite, Instagram algorithm 2026](https://blog.hootsuite.com/instag
 ## Workflow per reel
 
 1. Pick a concept; verify the science and save sources in `docs/reels/<nnn>-<slug>.md`.
-2. Script with the beat structure in `CLAUDE.md` (VO + on-screen text + visual + SFX per beat).
-3. Voiceover: Venkatesh records, or ElevenLabs in his cloned voice.
+2. Script in English with the beat structure in `CLAUDE.md` (VO + on-screen text + visual + SFX per beat).
+3. Voiceover (English): Venkatesh records, or ElevenLabs in his cloned voice.
 4. Build in code; check stills; render.
 5. 2–3 B-roll shots from Kling/Higgsfield if they add mood.
 6. Post as a Trial Reel with the cover, caption and pinned sources comment; add trending audio

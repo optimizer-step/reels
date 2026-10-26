@@ -1,63 +1,111 @@
 import React from "react";
-import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { Backdrop, COLORS, FONTS, Grain, Headline, Vignette, ensureFonts, prog } from "../../kit";
-import { COPY } from "./copy";
-import { Surface } from "./Surface";
-import { DURATION_S, FPS } from "./timeline";
+import { AbsoluteFill, Audio, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { Backdrop, COLORS, Flash, Glitch, Grain, Headline, ReelAudio, RewindFX, SHOW_SAFE_ZONE, SafeZoneOverlay, Vignette, WhipPan, ensureFonts, shake } from "../../kit";
+import { copy } from "./copy";
+import { sliderValue } from "./control";
+import { Board } from "./scenes/Board";
+import { Overlays } from "./scenes/Overlays";
+import { Valley } from "./scenes/Valley";
+import {
+  ASSETS,
+  BEATS,
+  BROLL,
+  CUES,
+  DURATION_S,
+  FPS,
+  IMPACTS,
+  MUSIC_SILENCES,
+  MUSIC_VOLUME,
+  SFX_CUES,
+  USE_MUSIC,
+  USE_SFX,
+  USE_VO,
+} from "./timeline";
+
 ensureFonts();
 
-const Capsule: React.FC<{ t: number }> = ({ t }) => (
-  <div style={{
-    position: "absolute", left: 60, top: 215, width: 880, height: 48,
-    display: "flex", alignItems: "center", justifyContent: "space-between",
-    fontFamily: FONTS.mono, fontSize: 23, fontWeight: 700,
-    color: COLORS.grey, letterSpacing: 2, opacity: 1 - prog(t, 33.7, 35.3),
-  }}>
-    <span>OPTIMIZER STEP  /  ML IN MOTION</span>
-    <span style={{ color: COLORS.yellow }}>03 / LEARNING RATE</span>
-  </div>
-);
-const Formula: React.FC<{ t: number }> = ({ t }) => (
-  <div style={{
-    position: "absolute", left: 84, top: 1120, width: 832,
-    borderTop: "1px solid " + COLORS.line, paddingTop: 17,
-    textAlign: "center", fontFamily: FONTS.mono, fontSize: 21,
-    color: COLORS.grey, opacity: prog(t, 4.5, 5.2) * (1 - prog(t, 30.5, 31.5)),
-  }}>
-    L(w,b) = (w - 2)^2 + (b - 1)^2
-  </div>
-);
+const REWINDS: [number, number][] = [
+  [BEATS.rewind1.start, BEATS.rewind1.end],
+  [BEATS.rewind2.start, BEATS.rewind2.end],
+  [BEATS.rewind3.start, BEATS.rewind3.end],
+];
+
 export const GradientDescentReel: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / FPS;
+  const sh = shake(t, IMPACTS, 3);
+
+  const valley = (
+    <AbsoluteFill>
+      <Backdrop t={t} glow="rgba(77,163,255,0.07)" />
+      <Valley t={t} frame={frame} sliderValue={sliderValue(t)} />
+    </AbsoluteFill>
+  );
+  const board = (
+    <AbsoluteFill>
+      <Backdrop t={t} />
+      <Board t={t} />
+    </AbsoluteFill>
+  );
+
+  // one continuous world: valley -> whip up -> board (chart, twist, CTA) -> whip down -> valley (loop)
+  let scene: React.ReactNode;
+  if (t < CUES.chart.whip + 0.5) scene = <WhipPan id="up" t={t} t0={CUES.chart.whip} dir={1} from={valley} to={board} />;
+  else scene = <WhipPan id="down" t={t} t0={CUES.cta.whip} dir={-1} from={board} to={valley} />;
+
+  const rw = REWINDS.find(([a, b]) => t >= a && t <= b);
+  if (rw) scene = <RewindFX t={t} t0={rw[0]} t1={rw[1]} label={copy.rewind}>{scene}</RewindFX>;
+
+  const alarmCut = BROLL.alarm && t >= CUES.big.explode + 0.04 && t < CUES.big.explode + 0.5;
+
   return (
     <AbsoluteFill style={{ background: COLORS.bg }}>
-      <Backdrop t={t} />
-      <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, background: "radial-gradient(ellipse at 50% 54%, rgba(255,214,10,0.035), transparent 58%)" }} />
-      <Capsule t={t} />
-      <Headline t={t} start={0.15} exit={3.85} lines={COPY.hook} top={310} size={91} stagger={0.12} />
-      <Headline t={t} start={4.2} exit={8.8} lines={COPY.direction} top={312} size={84} stagger={0.1} />
-      <Headline t={t} start={9.1} exit={21.5} lines={COPY.race} top={310} size={100} stagger={0.14} />
-      <Headline t={t} start={21.9} exit={27.9} lines={COPY.lesson} top={310} size={85} stagger={0.14} />
-      <Headline t={t} start={28.4} exit={31.3} lines={COPY.takeaway} top={310} size={79} stagger={0.1} />
-      <Surface t={t} />
-      <Formula t={t} />
-      <div style={{ position: "absolute", inset: 0, opacity: prog(t, 31.8, 32.4) * (1 - prog(t, 34.8, DURATION_S)) }}>
-        <Headline t={t} start={32.1} lines={[["COMMENT"], ["*GRADIENT*"]]} top={705} size={120} stagger={0.16} />
-      </div>
-      <Grain frame={frame} light={0.045} dark={0.065} />
-      <Vignette strength={0.4} />
-      <div style={{ position: "absolute", inset: 0, background: COLORS.bg, opacity: prog(t, 35.3, DURATION_S) }} />
+      <AbsoluteFill style={{ transform: `translate(${sh.x}px, ${sh.y}px) rotate(${sh.r}deg) scale(${1 + Math.min(0.04, Math.abs(sh.x) * 0.001)})` }}>
+        <Glitch t={t} t0={CUES.hook.escape - 0.02} dur={0.28} strength={1.1} seed={2}>
+          {scene}
+        </Glitch>
+      </AbsoluteFill>
+      {alarmCut ? (
+        <AbsoluteFill>
+          <OffthreadVideo src={staticFile(`${ASSETS}/broll/alarm.mp4`)} muted style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        </AbsoluteFill>
+      ) : null}
+      <AbsoluteFill style={{ transform: `translate(${sh.x * 0.3}px, ${sh.y * 0.3}px)` }}>
+        <Overlays t={t} />
+      </AbsoluteFill>
+      <Flash t={t} at={CUES.hook.escape} max={0.35} />
+      <Flash t={t} at={CUES.big.explode} max={0.35} color={COLORS.red} />
+      <Flash t={t} at={CUES.chart.breakout} max={0.4} color={COLORS.red} />
+      <Grain frame={frame} light={0.06} dark={0.09} />
+      <Vignette strength={0.5} />
+      {SHOW_SAFE_ZONE ? <SafeZoneOverlay /> : null}
+      <ReelAudio
+        dir={ASSETS}
+        duration={DURATION_S}
+        vo={{ enabled: USE_VO }}
+        music={{ enabled: USE_MUSIC, volume: MUSIC_VOLUME, silences: MUSIC_SILENCES }}
+        sfx={{ enabled: USE_SFX, cues: SFX_CUES }}
+      />
     </AbsoluteFill>
   );
 };
-export const GradientDescentCover: React.FC = () => (
-  <AbsoluteFill style={{ background: COLORS.bg }}>
-    <Backdrop t={0} />
-    <Capsule t={0} />
-    <Headline t={10} start={0} static lines={COPY.cover} top={338} size={128} />
-    <Surface t={21.1} />
-    <Grain frame={3} light={0.05} dark={0.08} />
-    <Vignette strength={0.4} />
-  </AbsoluteFill>
-);
+
+/** Cover: the ball smashing into a wall mid-bounce, trail behind it, headline locked on. The valley
+ * is lowered so the ball sits clear of the headline. */
+export const GradientDescentCover: React.FC = () => {
+  const t = CUES.hook.lines[1] - 0.03;
+  return (
+    <AbsoluteFill style={{ background: COLORS.bg }}>
+      <Backdrop t={t} glow="rgba(77,163,255,0.07)" />
+      <AbsoluteFill style={{ transform: "translateY(190px) scale(1.06)" }}>
+        <Valley t={t} frame={3} sliderValue={0.22} />
+      </AbsoluteFill>
+      <AbsoluteFill style={{ background: "linear-gradient(to bottom, rgba(11,11,15,0.85) 0%, rgba(11,11,15,0.2) 34%, rgba(11,11,15,0) 50%)" }} />
+      <Headline t={10} start={0} static lines={copy.cover} top={300} size={120} lineHeight={0.96} />
+      <Grain frame={4} light={0.07} dark={0.1} id="covergrain" />
+      <Vignette strength={0.5} />
+    </AbsoluteFill>
+  );
+};
+
+export { Audio, Sequence };
