@@ -79,7 +79,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
       p: posA,
       color: pA > 0.5 ? COLORS.yellow : COLORS.text,
       r: 0.1 * sA,
-      label: "bank",
+      label: t < C.bankB ? "bank" : undefined, // avoid two colliding labels during the handoff
       labelSize: 0.2,
       labelColor: COLORS.text,
       glow: 1,
@@ -93,7 +93,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
       p: posB,
       color: pB > 0.5 ? COLORS.blue : COLORS.text,
       r: 0.1 * sB,
-      label: "bank",
+      label: t >= C.flyB[1] - 0.1 ? "bank" : undefined,
       labelSize: 0.2,
       labelColor: COLORS.text,
       glow: 1,

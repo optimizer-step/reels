@@ -31,6 +31,15 @@ const surfaceLines = () => {
   return lines;
 };
 const GRID = surfaceLines();
+const CONTOURS = [0.8, 1.5, 2.25, 3.05].map((radius) => ({
+  radius,
+  // Quadratic isocontours: every point has the same true loss, radius².
+  path: pathFor(Array.from({ length: 129 }, (_, i) => {
+    const a = i / 128 * 2 * Math.PI;
+    return project(OPTIMUM.w + radius * Math.cos(a), OPTIMUM.b + radius * Math.sin(a));
+  })),
+}));
+
 
 const progressAt = (t: number) =>
   clamp01((t - FIRST_STEP_AT) / (SECONDS_PER_STEP * STEPS)) * STEPS;
@@ -97,7 +106,23 @@ export const Surface: React.FC<{ t: number }> = ({ t }) => {
       </defs>
       <ellipse cx={500} cy={925} rx={390} ry={280} fill="url(#gd-pool)" opacity={0.85} />
       <g clipPath="url(#gd-view)">
-        {GRID.map((d, i) => <path key={i} d={d} stroke={i % 3 === 0 ? "#5F5660" : "#363640"} strokeWidth={i % 3 === 0 ? 1.9 : 1.2} opacity={0.56} fill="none" />)}
+
+        {GRID.map((d, i) => (
+          <path key={i} d={d} stroke={i % 3 === 0 ? "#68606A" : "#363640"}
+            strokeWidth={i % 3 === 0 ? 2.1 : 1.2}
+            opacity={0.64 * prog(t, 3.35 + i * 0.017, 5.0 + i * 0.017)}
+            fill="none" />
+        ))}
+        {CONTOURS.map(({ radius, path }, i) => (
+          <g key={radius} opacity={prog(t, 4.4 + i * 0.19, 5.8 + i * 0.19)}>
+            <path d={path} stroke={i % 2 ? COLORS.blue : COLORS.yellow} strokeWidth={12}
+              opacity={0.11} filter="url(#gd-blur)" fill="none" />
+            <path d={path} stroke={i % 2 ? COLORS.blue : COLORS.yellow}
+              strokeWidth={2.5} strokeDasharray={i % 2 ? "4 11" : undefined} opacity={0.35 - i * 0.035}
+              fill="none" />
+          </g>
+        ))}
+
         <Trace t={t} id="steady" points={STEADY} color={COLORS.blue} />
         <Trace t={t} id="large" points={OVERSIZED} color={COLORS.red} />
         <circle cx={500} cy={995} r={10} fill={COLORS.yellow} />
