@@ -1,0 +1,119 @@
+{
+ "file": "line-07.mp3",
+ "text": "Now each import is a token, like at a dosa counter. It loads only when it's used. Never used? Never loaded.",
+ "duration": 6.576,
+ "words": [
+  {
+   "text": "Now",
+   "start": 0.0,
+   "end": 0.26
+  },
+  {
+   "text": "each",
+   "start": 0.27,
+   "end": 0.55
+  },
+  {
+   "text": "import",
+   "start": 0.56,
+   "end": 0.97
+  },
+  {
+   "text": "is",
+   "start": 0.98,
+   "end": 1.1
+  },
+  {
+   "text": "a",
+   "start": 1.11,
+   "end": 1.15
+  },
+  {
+   "text": "token,",
+   "start": 1.16,
+   "end": 1.69
+  },
+  {
+   "text": "like",
+   "start": 1.7,
+   "end": 1.86
+  },
+  {
+   "text": "at",
+   "start": 1.87,
+   "end": 1.92
+  },
+  {
+   "text": "a",
+   "start": 1.93,
+   "end": 1.96
+  },
+  {
+   "text": "dosa",
+   "start": 1.97,
+   "end": 2.3
+  },
+  {
+   "text": "counter.",
+   "start": 2.31,
+   "end": 2.82
+  },
+  {
+   "text": "It",
+   "start": 3.16,
+   "end": 3.24
+  },
+  {
+   "text": "loads",
+   "start": 3.25,
+   "end": 3.65
+  },
+  {
+   "text": "only",
+   "start": 3.66,
+   "end": 3.92
+  },
+  {
+   "text": "when",
+   "start": 3.93,
+   "end": 4.05
+  },
+  {
+   "text": "it's",
+   "start": 4.06,
+   "end": 4.21
+  },
+  {
+   "text": "used.",
+   "start": 4.22,
+   "end": 4.63
+  },
+  {
+   "text": "Never",
+   "start": 4.89,
+   "end": 5.12
+  },
+  {
+   "text": "used?",
+   "start": 5.13,
+   "end": 5.6
+  },
+  {
+   "text": "Never",
+   "start": 5.74,
+   "end": 6.0
+  },
+  {
+   "text": "loaded.",
+   "start": 6.01,
+   "end": 6.54
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.15,
+  "text": "Now each import is a token, like at a dosa counter. It loads only when it's used. Never used? Never loaded.",
+  "say": null
+ }
+}

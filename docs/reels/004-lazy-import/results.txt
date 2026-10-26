@@ -1,0 +1,4 @@
+3.15.1
+eager_app.py     788.1 ms    892 modules    125.3 MB
+lazy_app.py       47.6 ms     67 modules     21.7 MB
+speed-up: 16.6x

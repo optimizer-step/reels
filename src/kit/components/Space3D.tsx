@@ -20,6 +20,8 @@ export type Point3D = {
   glow?: number;
   ring?: number; // 0..1 pulse ring
   bold?: boolean;
+  /** with Space3D `declutter`, higher-priority labels win; lower ones fade out where they would collide */
+  labelPriority?: number;
 };
 export type View3D = { yaw: number; pitch: number; dist: number; focal: number; cx: number; cy: number };
 
@@ -47,7 +49,9 @@ export const Space3D: React.FC<{
   floor?: { y: number; extent: number; step: number; opacity: number };
   fog?: [number, number];
   opacity?: number;
-}> = ({ id, view, points, trails = [], links = [], floor, fog = [3, 7.5], opacity = 1 }) => {
+  /** fade labels that would overlap a higher-priority label (gap in px over which they fade in) */
+  declutter?: number;
+}> = ({ id, view, points, trails = [], links = [], floor, fog = [3, 7.5], opacity = 1, declutter }) => {
   const fogAt = (d: number) => 1 - 0.75 * Math.min(1, Math.max(0, (d - fog[0]) / (fog[1] - fog[0])));
   const grid: React.ReactNode[] = [];
   if (floor) {
@@ -62,6 +66,27 @@ export const Space3D: React.FC<{
     }
   }
   const proj = points.map((pt) => ({ pt, s: project(pt.p, view) })).sort((a, b) => b.s.depth - a.s.depth);
+  // label boxes in screen space (mono font: 0.6 em per character), same placement as the <text> below
+  const labelBox = (pt: Point3D, s: ReturnType<typeof project>) => {
+    const r = (pt.r ?? 0.05) * s.k;
+    const ls = (pt.labelSize ?? 0.11) * s.k;
+    const x0 = s.x + r + ls * 0.35;
+    return { x0, x1: x0 + 0.6 * ls * (pt.label?.length ?? 0), y0: s.y - ls * 0.5, y1: s.y + ls * 0.5 };
+  };
+  const labelAlpha = new Map<string, number>();
+  if (declutter) {
+    type Box = ReturnType<typeof labelBox>;
+    const kept: Box[] = [];
+    const order = proj.filter(({ pt }) => pt.label).sort((a, b) => (b.pt.labelPriority ?? 0) - (a.pt.labelPriority ?? 0) || a.s.depth - b.s.depth);
+    for (const { pt, s } of order) {
+      const b = labelBox(pt, s);
+      let gap = Infinity;
+      for (const k of kept) gap = Math.min(gap, Math.max(k.x0 - b.x1, b.x0 - k.x1, k.y0 - b.y1, b.y0 - k.y1));
+      const a = Math.max(0, Math.min(1, gap / declutter));
+      labelAlpha.set(pt.id, a);
+      if (a > 0.5 && (pt.opacity ?? 1) > 0.3) kept.push(b);
+    }
+  }
   return (
     <svg width={1080} height={1920} style={{ position: "absolute", inset: 0, opacity, overflow: "visible" }}>
       <defs>
@@ -109,8 +134,9 @@ export const Space3D: React.FC<{
             {pt.glow ? <circle cx={s.x} cy={s.y} r={r * 2.4} fill={pt.color} opacity={pt.glow * 0.7} filter={`url(#${id}-glow)`} /> : null}
             {pt.ring ? <circle cx={s.x} cy={s.y} r={r * (1.6 + pt.ring * 2.2)} fill="none" stroke={pt.color} strokeWidth={3} opacity={1 - pt.ring} /> : null}
             <circle cx={s.x} cy={s.y} r={r} fill={pt.color} />
-            {pt.label ? (
+            {pt.label && (labelAlpha.get(pt.id) ?? 1) > 0.01 ? (
               <text
+                opacity={labelAlpha.get(pt.id) ?? 1}
                 x={s.x + r + ls * 0.35}
                 y={s.y + ls * 0.36}
                 fontFamily={FONTS.mono}

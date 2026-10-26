@@ -1,0 +1,29 @@
+{
+  "notes": "Mood shots only: no text, logos or people. Words, numbers and charts are always drawn in code.",
+  "shots": [
+    {
+      "name": "datacenter",
+      "use": "Background plate behind the learning-rate schedule (twist beat), darkened",
+      "model": "kling-video/v3.0/std/text-to-video",
+      "params": {
+        "prompt": "Slow cinematic dolly forward down a dark data center aisle, tall server racks on both sides with blinking blue and amber status lights, thin atmospheric haze, shallow depth of field, high-contrast moody lighting, anamorphic lens flares, no people, no text, no logos, no signage",
+        "duration": 5,
+        "aspect_ratio": "9:16",
+        "sound": "off",
+        "cfg_scale": 0.5
+      }
+    },
+    {
+      "name": "alarm",
+      "use": "Half-second smash cut when the loss explodes",
+      "model": "kling-video/v3.0/std/text-to-video",
+      "params": {
+        "prompt": "Extreme close-up of server rack status lights suddenly switching from calm blue to rapidly flashing red, smoke-like haze, harsh red rim light, fast handheld micro-shake, cinematic, shallow depth of field, no text, no logos, no screens with writing",
+        "duration": 3,
+        "aspect_ratio": "9:16",
+        "sound": "off",
+        "cfg_scale": 0.5
+      }
+    }
+  ]
+}

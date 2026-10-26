@@ -1,0 +1,44 @@
+{
+ "file": "line-08.mp3",
+ "text": "Same problem. Only one number changed.",
+ "duration": 2.472,
+ "words": [
+  {
+   "text": "Same",
+   "start": 0.0,
+   "end": 0.33
+  },
+  {
+   "text": "problem.",
+   "start": 0.34,
+   "end": 0.82
+  },
+  {
+   "text": "Only",
+   "start": 1.07,
+   "end": 1.36
+  },
+  {
+   "text": "one",
+   "start": 1.37,
+   "end": 1.56
+  },
+  {
+   "text": "number",
+   "start": 1.57,
+   "end": 1.81
+  },
+  {
+   "text": "changed.",
+   "start": 1.82,
+   "end": 2.42
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.08,
+  "text": "Same problem. Only one number changed.",
+  "say": null
+ }
+}

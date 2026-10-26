@@ -1,0 +1,74 @@
+{
+ "file": "line-10.mp3",
+ "text": "Comment a learning rate, and I'll run yours in the next reel.",
+ "duration": 3.072,
+ "words": [
+  {
+   "text": "Comment",
+   "start": 0.0,
+   "end": 0.32
+  },
+  {
+   "text": "a",
+   "start": 0.33,
+   "end": 0.36
+  },
+  {
+   "text": "learning",
+   "start": 0.37,
+   "end": 0.69
+  },
+  {
+   "text": "rate,",
+   "start": 0.7,
+   "end": 1.01
+  },
+  {
+   "text": "and",
+   "start": 1.26,
+   "end": 1.38
+  },
+  {
+   "text": "I'll",
+   "start": 1.39,
+   "end": 1.59
+  },
+  {
+   "text": "run",
+   "start": 1.6,
+   "end": 1.81
+  },
+  {
+   "text": "yours",
+   "start": 1.82,
+   "end": 2.2
+  },
+  {
+   "text": "in",
+   "start": 2.21,
+   "end": 2.27
+  },
+  {
+   "text": "the",
+   "start": 2.28,
+   "end": 2.34
+  },
+  {
+   "text": "next",
+   "start": 2.35,
+   "end": 2.65
+  },
+  {
+   "text": "reel.",
+   "start": 2.66,
+   "end": 3.02
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.08,
+  "text": "Comment a learning rate, and I'll run yours in the next reel.",
+  "say": null
+ }
+}

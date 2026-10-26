@@ -1,0 +1,10 @@
+[
+  {
+    "tool": "kokoro-tts",
+    "name": "vo",
+    "voice": "af_heart",
+    "speed": 1.08,
+    "lines": 10,
+    "generated_at": "2026-10-26T03:28:16.073879+00:00"
+  }
+]

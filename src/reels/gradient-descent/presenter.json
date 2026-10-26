@@ -1,0 +1,4 @@
+{
+  "notes": "Optional HeyGen avatar of Venkatesh. Off by default (PRESENTER flag in timeline.ts). Lip-syncs to the generated voiceover line when it exists.",
+  "clips": [{ "name": "presenter-cta", "line": 10, "transparent": true, "script": "Comment a learning rate, and I'll run yours in the next reel." }]
+}

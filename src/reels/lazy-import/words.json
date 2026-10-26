@@ -1,0 +1,627 @@
+[
+ {
+  "text": "Same",
+  "start": 0.05,
+  "end": 0.34
+ },
+ {
+  "text": "app.",
+  "start": 0.35,
+  "end": 0.64
+ },
+ {
+  "text": "One",
+  "start": 0.87,
+  "end": 1.09
+ },
+ {
+  "text": "word",
+  "start": 1.1,
+  "end": 1.34
+ },
+ {
+  "text": "makes",
+  "start": 1.35,
+  "end": 1.54
+ },
+ {
+  "text": "it",
+  "start": 1.55,
+  "end": 1.63
+ },
+ {
+  "text": "start",
+  "start": 1.64,
+  "end": 1.89
+ },
+ {
+  "text": "sixteen",
+  "start": 1.9,
+  "end": 2.28
+ },
+ {
+  "text": "times",
+  "start": 2.29,
+  "end": 2.67
+ },
+ {
+  "text": "faster.",
+  "start": 2.68,
+  "end": 3.24
+ },
+ {
+  "text": "Why?",
+  "start": 3.54,
+  "end": 3.85
+ },
+ {
+  "text": "Every",
+  "start": 4.06,
+  "end": 4.32
+ },
+ {
+  "text": "import",
+  "start": 4.33,
+  "end": 4.69
+ },
+ {
+  "text": "runs",
+  "start": 4.7,
+  "end": 4.96
+ },
+ {
+  "text": "before",
+  "start": 4.97,
+  "end": 5.16
+ },
+ {
+  "text": "your",
+  "start": 5.17,
+  "end": 5.28
+ },
+ {
+  "text": "code",
+  "start": 5.29,
+  "end": 5.59
+ },
+ {
+  "text": "even",
+  "start": 5.6,
+  "end": 5.85
+ },
+ {
+  "text": "starts.",
+  "start": 5.86,
+  "end": 6.37
+ },
+ {
+  "text": "And",
+  "start": 6.67,
+  "end": 6.76
+ },
+ {
+  "text": "pandas",
+  "start": 6.77,
+  "end": 7.2
+ },
+ {
+  "text": "isn't",
+  "start": 7.21,
+  "end": 7.42
+ },
+ {
+  "text": "one",
+  "start": 7.43,
+  "end": 7.66
+ },
+ {
+  "text": "file.",
+  "start": 7.67,
+  "end": 8.05
+ },
+ {
+  "text": "It's",
+  "start": 8.35,
+  "end": 8.53
+ },
+ {
+  "text": "five",
+  "start": 8.54,
+  "end": 8.79
+ },
+ {
+  "text": "hundred",
+  "start": 8.8,
+  "end": 9.14
+ },
+ {
+  "text": "and",
+  "start": 9.15,
+  "end": 9.27
+ },
+ {
+  "text": "sixty-five.",
+  "start": 9.28,
+  "end": 10.07
+ },
+ {
+  "text": "Just",
+  "start": 10.376,
+  "end": 10.626
+ },
+ {
+  "text": "to",
+  "start": 10.636,
+  "end": 10.696
+ },
+ {
+  "text": "show",
+  "start": 10.706,
+  "end": 10.916
+ },
+ {
+  "text": "help,",
+  "start": 10.926,
+  "end": 11.436
+ },
+ {
+  "text": "it",
+  "start": 11.446,
+  "end": 11.546
+ },
+ {
+  "text": "loads",
+  "start": 11.556,
+  "end": 11.916
+ },
+ {
+  "text": "eight",
+  "start": 11.926,
+  "end": 12.116
+ },
+ {
+  "text": "hundred",
+  "start": 12.126,
+  "end": 12.456
+ },
+ {
+  "text": "and",
+  "start": 12.466,
+  "end": 12.576
+ },
+ {
+  "text": "ninety-two",
+  "start": 12.586,
+  "end": 13.026
+ },
+ {
+  "text": "modules…",
+  "start": 13.036,
+  "end": 13.576
+ },
+ {
+  "text": "and",
+  "start": 13.856,
+  "end": 13.986
+ },
+ {
+  "text": "uses",
+  "start": 13.996,
+  "end": 14.346
+ },
+ {
+  "text": "none.",
+  "start": 14.356,
+  "end": 14.736
+ },
+ {
+  "text": "Coders",
+  "start": 15.042,
+  "end": 15.462
+ },
+ {
+  "text": "used",
+  "start": 15.472,
+  "end": 15.642
+ },
+ {
+  "text": "to",
+  "start": 15.652,
+  "end": 15.702
+ },
+ {
+  "text": "hide",
+  "start": 15.712,
+  "end": 15.992
+ },
+ {
+  "text": "imports",
+  "start": 16.002,
+  "end": 16.472
+ },
+ {
+  "text": "inside",
+  "start": 16.482,
+  "end": 16.942
+ },
+ {
+  "text": "functions",
+  "start": 16.952,
+  "end": 17.462
+ },
+ {
+  "text": "to",
+  "start": 17.472,
+  "end": 17.562
+ },
+ {
+  "text": "dodge",
+  "start": 17.572,
+  "end": 17.952
+ },
+ {
+  "text": "this.",
+  "start": 17.962,
+  "end": 18.292
+ },
+ {
+  "text": "Python",
+  "start": 18.58,
+  "end": 18.98
+ },
+ {
+  "text": "three",
+  "start": 18.99,
+  "end": 19.15
+ },
+ {
+  "text": "fifteen",
+  "start": 19.16,
+  "end": 19.6
+ },
+ {
+  "text": "makes",
+  "start": 19.61,
+  "end": 19.81
+ },
+ {
+  "text": "it",
+  "start": 19.82,
+  "end": 19.87
+ },
+ {
+  "text": "one",
+  "start": 19.88,
+  "end": 20.06
+ },
+ {
+  "text": "word:",
+  "start": 20.07,
+  "end": 20.4
+ },
+ {
+  "text": "lazy.",
+  "start": 20.73,
+  "end": 21.3
+ },
+ {
+  "text": "Now",
+  "start": 21.59,
+  "end": 21.85
+ },
+ {
+  "text": "each",
+  "start": 21.86,
+  "end": 22.14
+ },
+ {
+  "text": "import",
+  "start": 22.15,
+  "end": 22.56
+ },
+ {
+  "text": "is",
+  "start": 22.57,
+  "end": 22.69
+ },
+ {
+  "text": "a",
+  "start": 22.7,
+  "end": 22.74
+ },
+ {
+  "text": "token,",
+  "start": 22.75,
+  "end": 23.28
+ },
+ {
+  "text": "like",
+  "start": 23.29,
+  "end": 23.45
+ },
+ {
+  "text": "at",
+  "start": 23.46,
+  "end": 23.51
+ },
+ {
+  "text": "a",
+  "start": 23.52,
+  "end": 23.55
+ },
+ {
+  "text": "dosa",
+  "start": 23.56,
+  "end": 23.89
+ },
+ {
+  "text": "counter.",
+  "start": 23.9,
+  "end": 24.41
+ },
+ {
+  "text": "It",
+  "start": 24.75,
+  "end": 24.83
+ },
+ {
+  "text": "loads",
+  "start": 24.84,
+  "end": 25.24
+ },
+ {
+  "text": "only",
+  "start": 25.25,
+  "end": 25.51
+ },
+ {
+  "text": "when",
+  "start": 25.52,
+  "end": 25.64
+ },
+ {
+  "text": "it's",
+  "start": 25.65,
+  "end": 25.8
+ },
+ {
+  "text": "used.",
+  "start": 25.81,
+  "end": 26.22
+ },
+ {
+  "text": "Never",
+  "start": 26.48,
+  "end": 26.71
+ },
+ {
+  "text": "used?",
+  "start": 26.72,
+  "end": 27.19
+ },
+ {
+  "text": "Never",
+  "start": 27.33,
+  "end": 27.59
+ },
+ {
+  "text": "loaded.",
+  "start": 27.6,
+  "end": 28.13
+ },
+ {
+  "text": "Why",
+  "start": 28.416,
+  "end": 28.566
+ },
+ {
+  "text": "so",
+  "start": 28.576,
+  "end": 28.766
+ },
+ {
+  "text": "late?",
+  "start": 28.776,
+  "end": 29.066
+ },
+ {
+  "text": "Making",
+  "start": 29.316,
+  "end": 29.616
+ },
+ {
+  "text": "all",
+  "start": 29.626,
+  "end": 29.856
+ },
+ {
+  "text": "imports",
+  "start": 29.866,
+  "end": 30.336
+ },
+ {
+  "text": "lazy",
+  "start": 30.346,
+  "end": 30.706
+ },
+ {
+  "text": "was",
+  "start": 30.716,
+  "end": 30.866
+ },
+ {
+  "text": "rejected",
+  "start": 30.876,
+  "end": 31.336
+ },
+ {
+  "text": "in",
+  "start": 31.346,
+  "end": 31.486
+ },
+ {
+  "text": "2022:",
+  "start": 31.496,
+  "end": 32.666
+ },
+ {
+  "text": "too",
+  "start": 32.906,
+  "end": 33.116
+ },
+ {
+  "text": "risky.",
+  "start": 33.126,
+  "end": 33.576
+ },
+ {
+  "text": "So",
+  "start": 33.926,
+  "end": 34.046
+ },
+ {
+  "text": "now",
+  "start": 34.056,
+  "end": 34.286
+ },
+ {
+  "text": "it's",
+  "start": 34.296,
+  "end": 34.416
+ },
+ {
+  "text": "opt-in,",
+  "start": 34.426,
+  "end": 35.086
+ },
+ {
+  "text": "line",
+  "start": 35.096,
+  "end": 35.426
+ },
+ {
+  "text": "by",
+  "start": 35.436,
+  "end": 35.606
+ },
+ {
+  "text": "line.",
+  "start": 35.616,
+  "end": 36.046
+ },
+ {
+  "text": "Faster",
+  "start": 36.346,
+  "end": 36.706
+ },
+ {
+  "text": "startup,",
+  "start": 36.716,
+  "end": 37.226
+ },
+ {
+  "text": "less",
+  "start": 37.236,
+  "end": 37.466
+ },
+ {
+  "text": "memory,",
+  "start": 37.476,
+  "end": 37.896
+ },
+ {
+  "text": "cleaner",
+  "start": 37.906,
+  "end": 38.226
+ },
+ {
+  "text": "code.",
+  "start": 38.236,
+  "end": 38.656
+ },
+ {
+  "text": "The",
+  "start": 39.056,
+  "end": 39.106
+ },
+ {
+  "text": "catch:",
+  "start": 39.116,
+  "end": 39.566
+ },
+ {
+  "text": "a",
+  "start": 39.876,
+  "end": 39.916
+ },
+ {
+  "text": "broken",
+  "start": 39.926,
+  "end": 40.326
+ },
+ {
+  "text": "import",
+  "start": 40.336,
+  "end": 40.736
+ },
+ {
+  "text": "fails",
+  "start": 40.746,
+  "end": 41.096
+ },
+ {
+  "text": "when",
+  "start": 41.106,
+  "end": 41.186
+ },
+ {
+  "text": "it's",
+  "start": 41.196,
+  "end": 41.336
+ },
+ {
+  "text": "used,",
+  "start": 41.346,
+  "end": 41.776
+ },
+ {
+  "text": "not",
+  "start": 41.786,
+  "end": 41.976
+ },
+ {
+  "text": "at",
+  "start": 41.986,
+  "end": 42.076
+ },
+ {
+  "text": "startup.",
+  "start": 42.086,
+  "end": 42.626
+ },
+ {
+  "text": "Comment",
+  "start": 42.932,
+  "end": 43.242
+ },
+ {
+  "text": "lazy,",
+  "start": 43.252,
+  "end": 43.742
+ },
+ {
+  "text": "for",
+  "start": 43.752,
+  "end": 43.872
+ },
+ {
+  "text": "the",
+  "start": 43.882,
+  "end": 43.952
+ },
+ {
+  "text": "benchmark.",
+  "start": 43.962,
+  "end": 44.652
+ }
+]

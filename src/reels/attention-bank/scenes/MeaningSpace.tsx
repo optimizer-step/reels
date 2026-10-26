@@ -55,6 +55,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
       color,
       r: 0.055,
       label: w,
+      labelPriority: 5 - i * 0.1,
       labelSize: 0.13,
       opacity: prog(t, C.reveal + 0.3 + k * 0.25 + i * 0.05, C.reveal + 0.7 + k * 0.25 + i * 0.05),
       glow: 0.6,
@@ -69,6 +70,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
       color: COLORS.grey,
       r: 0.04,
       label: w,
+      labelPriority: 1,
       labelSize: 0.1,
       opacity: 0.75 * prog(t, C.reveal + 0.8 + i * 0.05, C.reveal + 1.2 + i * 0.05),
     })),
@@ -80,6 +82,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
       color: pA > 0.5 ? COLORS.yellow : COLORS.text,
       r: 0.1 * sA,
       label: "bank",
+      labelPriority: 10,
       labelSize: 0.2,
       labelColor: COLORS.text,
       glow: 1,
@@ -94,6 +97,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
       color: pB > 0.5 ? COLORS.blue : COLORS.text,
       r: 0.1 * sB,
       label: "bank",
+      labelPriority: 10,
       labelSize: 0.2,
       labelColor: COLORS.text,
       glow: 1,
@@ -134,6 +138,7 @@ export const MeaningSpace: React.FC<{ t: number }> = ({ t }) => {
         id="meaning"
         view={view}
         points={points}
+        declutter={14}
         links={links}
         trails={[
           ...(t >= C.flyA[0] ? [{ pts: trail(B0, BA, pA), color: COLORS.yellow, width: 5, opacity: 0.85 }] : []),

@@ -1,0 +1,59 @@
+{
+ "file": "line-02.mp3",
+ "text": "Why? Every import runs before your code even starts.",
+ "duration": 2.88,
+ "words": [
+  {
+   "text": "Why?",
+   "start": 0.0,
+   "end": 0.31
+  },
+  {
+   "text": "Every",
+   "start": 0.52,
+   "end": 0.78
+  },
+  {
+   "text": "import",
+   "start": 0.79,
+   "end": 1.15
+  },
+  {
+   "text": "runs",
+   "start": 1.16,
+   "end": 1.42
+  },
+  {
+   "text": "before",
+   "start": 1.43,
+   "end": 1.62
+  },
+  {
+   "text": "your",
+   "start": 1.63,
+   "end": 1.74
+  },
+  {
+   "text": "code",
+   "start": 1.75,
+   "end": 2.05
+  },
+  {
+   "text": "even",
+   "start": 2.06,
+   "end": 2.31
+  },
+  {
+   "text": "starts.",
+   "start": 2.32,
+   "end": 2.83
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.15,
+  "text": "Why? Every import runs before your code even starts.",
+  "say": null
+ }
+}

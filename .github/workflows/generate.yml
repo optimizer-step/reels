@@ -1,0 +1,102 @@
+name: Generate reel assets (voice, sound, HeyGen, Higgsfield)
+
+# Run from the Actions tab (or the API) to generate a reel's voiceover, presenter clips, cinematic
+# shots and soundtrack, then commit them back to the branch it ran on. Keys live in repo secrets:
+# HEYGEN_API_KEY, HEYGEN_VOICE_ID, HEYGEN_AVATAR_ID, HIGGSFIELD_API_KEY_ID, HIGGSFIELD_API_KEY_SECRET.
+# voice = HeyGen (needs the key); voice-local = Kokoro, offline, no key. Any new voice re-scores the
+# soundtrack (scripts/audio/<slug>.py) because the beats and the ducking follow the voice.
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: Reel folder name in src/reels (e.g. gradient-descent)
+        required: true
+      task:
+        description: What to generate
+        type: choice
+        options: [all, voice, voice-local, avatar, shots, sound]
+        default: all
+      force:
+        description: Regenerate files that already exist
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SLUG: ${{ inputs.slug }}
+      TASK: ${{ inputs.task }}
+      FORCE: ${{ inputs.force && '--force' || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: pip install numpy scipy soundfile kokoro-onnx pocketsphinx
+      - name: Validate input
+        run: |
+          [[ "$SLUG" =~ ^[a-z0-9][a-z0-9-]*$ ]] || { echo "bad slug"; exit 1; }
+          [ -d "src/reels/$SLUG" ] || { echo "no reel src/reels/$SLUG"; exit 1; }
+      - name: Ensure ffmpeg
+        run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+      - name: HeyGen voiceover
+        if: inputs.task == 'all' || inputs.task == 'voice'
+        env:
+          HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
+          HEYGEN_VOICE_ID: ${{ secrets.HEYGEN_VOICE_ID }}
+        run: |
+          if [ -z "$HEYGEN_API_KEY" ] || [ ! -f "src/reels/$SLUG/vo.json" ]; then echo "skipped (no key or no vo.json)"; exit 0; fi
+          node scripts/gen/heygen.mjs tts "$SLUG" $FORCE
+      - uses: actions/cache@v4
+        if: inputs.task == 'voice-local'
+        with:
+          path: .cache/kokoro
+          key: kokoro-model-files-v1.0
+      - name: Local voiceover (Kokoro)
+        if: inputs.task == 'voice-local'
+        run: python3 scripts/gen/kokoro_tts.py "$SLUG" $FORCE
+      - name: HeyGen presenter
+        if: inputs.task == 'all' || inputs.task == 'avatar'
+        env:
+          HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
+          HEYGEN_VOICE_ID: ${{ secrets.HEYGEN_VOICE_ID }}
+          HEYGEN_AVATAR_ID: ${{ secrets.HEYGEN_AVATAR_ID }}
+        run: |
+          if [ -z "$HEYGEN_API_KEY" ] || [ -z "$HEYGEN_AVATAR_ID" ] || [ ! -f "src/reels/$SLUG/presenter.json" ]; then echo "skipped (no key, avatar or presenter.json)"; exit 0; fi
+          node scripts/gen/heygen.mjs avatar "$SLUG" $FORCE
+      - name: Higgsfield shots
+        if: inputs.task == 'all' || inputs.task == 'shots'
+        env:
+          HIGGSFIELD_API_KEY_ID: ${{ secrets.HIGGSFIELD_API_KEY_ID }}
+          HIGGSFIELD_API_KEY_SECRET: ${{ secrets.HIGGSFIELD_API_KEY_SECRET }}
+        run: |
+          if [ -z "$HIGGSFIELD_API_KEY_ID" ] || [ ! -f "src/reels/$SLUG/shots.json" ]; then echo "skipped (no key or no shots.json)"; exit 0; fi
+          node scripts/gen/higgsfield.mjs "$SLUG" $FORCE
+      - name: Soundtrack and final mix
+        if: inputs.task == 'all' || inputs.task == 'voice' || inputs.task == 'voice-local' || inputs.task == 'sound'
+        run: |
+          script="scripts/audio/${SLUG//-/_}.py"
+          if [ ! -f "$script" ]; then echo "skipped (no $script)"; exit 0; fi
+          python3 "$script"
+      - name: Commit generated assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "public/reels/$SLUG" "src/reels/$SLUG/words.json" "src/reels/$SLUG/vo-lines.json" 2>/dev/null || true
+          if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
+          git commit -m "Generate assets for $SLUG ($TASK)"
+          git push

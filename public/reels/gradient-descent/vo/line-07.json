@@ -1,0 +1,69 @@
+{
+ "file": "line-07.mp3",
+ "text": "Too big? It bounces wall to wall\u2026 and flies right out.",
+ "duration": 3.096,
+ "words": [
+  {
+   "text": "Too",
+   "start": 0.0,
+   "end": 0.18
+  },
+  {
+   "text": "big?",
+   "start": 0.19,
+   "end": 0.49
+  },
+  {
+   "text": "It",
+   "start": 0.5,
+   "end": 0.7
+  },
+  {
+   "text": "bounces",
+   "start": 0.71,
+   "end": 1.08
+  },
+  {
+   "text": "wall",
+   "start": 1.09,
+   "end": 1.31
+  },
+  {
+   "text": "to",
+   "start": 1.32,
+   "end": 1.42
+  },
+  {
+   "text": "wall\u2026",
+   "start": 1.43,
+   "end": 1.8
+  },
+  {
+   "text": "and",
+   "start": 1.95,
+   "end": 2.08
+  },
+  {
+   "text": "flies",
+   "start": 2.09,
+   "end": 2.51
+  },
+  {
+   "text": "right",
+   "start": 2.52,
+   "end": 2.7
+  },
+  {
+   "text": "out.",
+   "start": 2.71,
+   "end": 3.06
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.08,
+  "text": "Too big? It bounces wall to wall\u2026 and flies right out.",
+  "say": null
+ }
+}

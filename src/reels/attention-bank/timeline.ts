@@ -91,8 +91,9 @@ export const CUES = {
   cta: {
     text: 43.15,
     comment: 43.6,
-    flight: [43.4, 45.2] as [number, number],
-    fade: 46.0,
+    // a slower flight home under the CTA; the CTA clears before the camera lands on the hook (loop)
+    flight: [43.4, 46.0] as [number, number],
+    fade: 44.95,
   },
 };
 
