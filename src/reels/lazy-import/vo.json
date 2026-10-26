@@ -1,0 +1,51 @@
+{
+  "language": "en",
+  "speed": 1.0,
+  "kokoro_voice": "af_heart",
+  "kokoro_speed": 1.15,
+  "gap": 0.25,
+  "lines": [
+    {
+      "text": "Same app. One word makes it start sixteen times faster.",
+      "hold": 3.0
+    },
+    {
+      "text": "Why? Every import runs before your code even starts.",
+      "hold": 2.8
+    },
+    {
+      "text": "And pandas isn't one file. It's five hundred and sixty-five.",
+      "hold": 3.4
+    },
+    {
+      "text": "Just to show help, it loads eight hundred and ninety-two modules… and uses none.",
+      "hold": 4.4
+    },
+    {
+      "text": "Coders used to hide imports inside functions to dodge this.",
+      "hold": 3.0
+    },
+    {
+      "text": "Python 3.15 makes it one word: lazy.",
+      "say": "Python three fifteen makes it one word: lazy.",
+      "hold": 2.6
+    },
+    {
+      "text": "Now each import is a token, like at a dosa counter. It loads only when it's used. Never used? Never loaded.",
+      "hold": 5.8
+    },
+    {
+      "text": "Why so late? Making all imports lazy was rejected in 2022: too risky. So now it's opt-in, line by line.",
+      "hold": 6.4
+    },
+    {
+      "text": "Faster startup, less memory, cleaner code. The catch: a broken import fails when it's used, not at startup.",
+      "hold": 5.6
+    },
+    {
+      "text": "Comment LAZY for the benchmark.",
+      "say": "Comment lazy, for the benchmark."
+    }
+  ],
+  "notes": "hold = minimum seconds from this line's start to the next line's start (the beat length). Lines that run long stretch their beat. `say` is what the TTS speaks when it differs from the on-screen wording. kokoro_voice/kokoro_speed are for the offline voice (scripts/gen/kokoro_tts.py); speed is for HeyGen."
+}

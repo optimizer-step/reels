@@ -1,0 +1,84 @@
+{
+ "file": "line-04.mp3",
+ "text": "Just to show help, it loads eight hundred and ninety-two modules\u2026 and uses none.",
+ "duration": 4.416,
+ "words": [
+  {
+   "text": "Just",
+   "start": 0.0,
+   "end": 0.25
+  },
+  {
+   "text": "to",
+   "start": 0.26,
+   "end": 0.32
+  },
+  {
+   "text": "show",
+   "start": 0.33,
+   "end": 0.54
+  },
+  {
+   "text": "help,",
+   "start": 0.55,
+   "end": 1.06
+  },
+  {
+   "text": "it",
+   "start": 1.07,
+   "end": 1.17
+  },
+  {
+   "text": "loads",
+   "start": 1.18,
+   "end": 1.54
+  },
+  {
+   "text": "eight",
+   "start": 1.55,
+   "end": 1.74
+  },
+  {
+   "text": "hundred",
+   "start": 1.75,
+   "end": 2.08
+  },
+  {
+   "text": "and",
+   "start": 2.09,
+   "end": 2.2
+  },
+  {
+   "text": "ninety-two",
+   "start": 2.21,
+   "end": 2.65
+  },
+  {
+   "text": "modules\u2026",
+   "start": 2.66,
+   "end": 3.2
+  },
+  {
+   "text": "and",
+   "start": 3.48,
+   "end": 3.61
+  },
+  {
+   "text": "uses",
+   "start": 3.62,
+   "end": 3.97
+  },
+  {
+   "text": "none.",
+   "start": 3.98,
+   "end": 4.36
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.15,
+  "text": "Just to show help, it loads eight hundred and ninety-two modules\u2026 and uses none.",
+  "say": null
+ }
+}

@@ -1,0 +1,114 @@
+{
+ "file": "line-08.mp3",
+ "text": "Why so late? Making all imports lazy was rejected in 2022: too risky. So now it's opt-in, line by line.",
+ "duration": 7.68,
+ "words": [
+  {
+   "text": "Why",
+   "start": 0.0,
+   "end": 0.15
+  },
+  {
+   "text": "so",
+   "start": 0.16,
+   "end": 0.35
+  },
+  {
+   "text": "late?",
+   "start": 0.36,
+   "end": 0.65
+  },
+  {
+   "text": "Making",
+   "start": 0.9,
+   "end": 1.2
+  },
+  {
+   "text": "all",
+   "start": 1.21,
+   "end": 1.44
+  },
+  {
+   "text": "imports",
+   "start": 1.45,
+   "end": 1.92
+  },
+  {
+   "text": "lazy",
+   "start": 1.93,
+   "end": 2.29
+  },
+  {
+   "text": "was",
+   "start": 2.3,
+   "end": 2.45
+  },
+  {
+   "text": "rejected",
+   "start": 2.46,
+   "end": 2.92
+  },
+  {
+   "text": "in",
+   "start": 2.93,
+   "end": 3.07
+  },
+  {
+   "text": "2022:",
+   "start": 3.08,
+   "end": 4.25
+  },
+  {
+   "text": "too",
+   "start": 4.49,
+   "end": 4.7
+  },
+  {
+   "text": "risky.",
+   "start": 4.71,
+   "end": 5.16
+  },
+  {
+   "text": "So",
+   "start": 5.51,
+   "end": 5.63
+  },
+  {
+   "text": "now",
+   "start": 5.64,
+   "end": 5.87
+  },
+  {
+   "text": "it's",
+   "start": 5.88,
+   "end": 6.0
+  },
+  {
+   "text": "opt-in,",
+   "start": 6.01,
+   "end": 6.67
+  },
+  {
+   "text": "line",
+   "start": 6.68,
+   "end": 7.01
+  },
+  {
+   "text": "by",
+   "start": 7.02,
+   "end": 7.19
+  },
+  {
+   "text": "line.",
+   "start": 7.2,
+   "end": 7.63
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.15,
+  "text": "Why so late? Making all imports lazy was rejected in 2022: too risky. So now it's opt-in, line by line.",
+  "say": null
+ }
+}

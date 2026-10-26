@@ -9,6 +9,7 @@ so every word, number and timing is exact and editable.
 | 001 | AI is eating its own homework (model collapse) | `src/reels/model-collapse` | 54 s | Rendered, awaiting voiceover |
 | 002 | SBI or river bank? How AI decides (attention) | `src/reels/attention-bank` | 47 s | Rendered, awaiting voiceover |
 | 003 | One number can break AI training (learning rate) | `src/reels/gradient-descent` | 44 s | Rendered with a scratch English voice, full score and mastered mix; swap in the HeyGen voice when ready |
+| 004 | One word that makes Python start 16× faster (lazy imports, Python 3.15) | `src/reels/lazy-import` | 46 s | Rendered with a scratch English voice, full score and mastered mix; real benchmark in `docs/reels/004-lazy-import/` |
 
 Briefs, scripts and fact sheets: `docs/reels/`. Strategy and concept bank: `docs/playbook.md`.
 
@@ -70,7 +71,7 @@ script reads its timeline through `scripts/audio/cues.mjs`, so the score is cut 
 src/
   kit/                    shared house style + components (above)
   reels/
-    template/             copied by `npm run new`
+    _template/            copied by `npm run new`
     model-collapse/       reel 001
     attention-bank/       reel 002 — one continuous camera world
       timeline.ts         every time in SECONDS, camera keys, asset flags, SFX cues

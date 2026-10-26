@@ -13,6 +13,8 @@ export const COLORS = {
   red: "#FF3B30",
   green: "#30D158",
   blue: "#4DA3FF",
+  orange: "#FF9F0A",
+  violet: "#BF8BFF",
   grey: "#8A8A93",
   paper: "#F4F1EA",
   paperDirty: "#C4C0B6",

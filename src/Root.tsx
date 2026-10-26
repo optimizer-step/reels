@@ -4,6 +4,7 @@ import { Template } from "./reels/_template";
 import { ModelCollapse } from "./reels/model-collapse";
 import { AttentionBank } from "./reels/attention-bank";
 import { GradientDescent } from "./reels/gradient-descent";
+import { LazyImport } from "./reels/lazy-import";
 // REELS:IMPORTS:END
 
 export const RemotionRoot: React.FC = () => (
@@ -13,6 +14,7 @@ export const RemotionRoot: React.FC = () => (
     <ModelCollapse />
     <AttentionBank />
     <GradientDescent />
+    <LazyImport />
     {/* REELS:LIST:END */}
   </>
 );

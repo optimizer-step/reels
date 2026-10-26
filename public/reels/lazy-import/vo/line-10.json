@@ -1,0 +1,39 @@
+{
+ "file": "line-10.mp3",
+ "text": "Comment lazy, for the benchmark.",
+ "duration": 1.752,
+ "words": [
+  {
+   "text": "Comment",
+   "start": 0.0,
+   "end": 0.31
+  },
+  {
+   "text": "lazy,",
+   "start": 0.32,
+   "end": 0.81
+  },
+  {
+   "text": "for",
+   "start": 0.82,
+   "end": 0.94
+  },
+  {
+   "text": "the",
+   "start": 0.95,
+   "end": 1.02
+  },
+  {
+   "text": "benchmark.",
+   "start": 1.03,
+   "end": 1.72
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.15,
+  "text": "Comment LAZY for the benchmark.",
+  "say": "Comment lazy, for the benchmark."
+ }
+}

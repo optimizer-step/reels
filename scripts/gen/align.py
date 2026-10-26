@@ -19,6 +19,10 @@ EXTRA = {
     "ml": "EH M EH L",
     "llm": "EH L EH L EH M",
     "llms": "EH L EH L EH M Z",
+    "dosa": "D OW S AH",
+    "coders": "K OW D ER Z",
+    "pytorch": "P AY T AO R CH",
+    "numpy": "N AH M P AY",
 }
 DIGITS = "zero one two three four five six seven eight nine".split()
 

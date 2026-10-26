@@ -1,0 +1,104 @@
+{
+ "file": "line-09.mp3",
+ "text": "Faster startup, less memory, cleaner code. The catch: a broken import fails when it's used, not at startup.",
+ "duration": 6.336,
+ "words": [
+  {
+   "text": "Faster",
+   "start": 0.0,
+   "end": 0.36
+  },
+  {
+   "text": "startup,",
+   "start": 0.37,
+   "end": 0.88
+  },
+  {
+   "text": "less",
+   "start": 0.89,
+   "end": 1.12
+  },
+  {
+   "text": "memory,",
+   "start": 1.13,
+   "end": 1.55
+  },
+  {
+   "text": "cleaner",
+   "start": 1.56,
+   "end": 1.88
+  },
+  {
+   "text": "code.",
+   "start": 1.89,
+   "end": 2.31
+  },
+  {
+   "text": "The",
+   "start": 2.71,
+   "end": 2.76
+  },
+  {
+   "text": "catch:",
+   "start": 2.77,
+   "end": 3.22
+  },
+  {
+   "text": "a",
+   "start": 3.53,
+   "end": 3.57
+  },
+  {
+   "text": "broken",
+   "start": 3.58,
+   "end": 3.98
+  },
+  {
+   "text": "import",
+   "start": 3.99,
+   "end": 4.39
+  },
+  {
+   "text": "fails",
+   "start": 4.4,
+   "end": 4.75
+  },
+  {
+   "text": "when",
+   "start": 4.76,
+   "end": 4.84
+  },
+  {
+   "text": "it's",
+   "start": 4.85,
+   "end": 4.99
+  },
+  {
+   "text": "used,",
+   "start": 5.0,
+   "end": 5.43
+  },
+  {
+   "text": "not",
+   "start": 5.44,
+   "end": 5.63
+  },
+  {
+   "text": "at",
+   "start": 5.64,
+   "end": 5.73
+  },
+  {
+   "text": "startup.",
+   "start": 5.74,
+   "end": 6.28
+  }
+ ],
+ "sig": {
+  "tool": "kokoro",
+  "voice": "af_heart",
+  "speed": 1.15,
+  "text": "Faster startup, less memory, cleaner code. The catch: a broken import fails when it's used, not at startup.",
+  "say": null
+ }
+}

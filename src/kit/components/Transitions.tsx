@@ -83,27 +83,30 @@ export const WhipPan: React.FC<{
   t0: number;
   dur?: number;
   dir?: 1 | -1;
+  /** "y" (default): vertical pan; "x": sideways (dir 1 = the new scene comes in from the right) */
+  axis?: "x" | "y";
   from: React.ReactNode;
   to: React.ReactNode;
   id: string;
-}> = ({ t, t0, dur = 0.42, dir = 1, from, to, id }) => {
+}> = ({ t, t0, dur = 0.42, dir = 1, axis = "y", from, to, id }) => {
   if (t < t0) return <>{from}</>;
   if (t > t0 + dur) return <>{to}</>;
   const pos = (x: number) => ease.inOut(clamp01((x - t0) / dur));
   const p = pos(t);
-  const v = Math.abs(pos(t + 0.5 / FPS) - pos(t - 0.5 / FPS)) * 1920;
+  const span = axis === "y" ? 1920 + 120 : 1080 + 120;
+  const v = Math.abs(pos(t + 0.5 / FPS) - pos(t - 0.5 / FPS)) * span;
   const blur = Math.min(60, v * 0.45);
-  const H = 1920 + 120;
+  const tr = (k: number) => (axis === "y" ? `translateY(${dir * k * span}px)` : `translateX(${-dir * k * span}px)`);
   return (
     <AbsoluteFill style={{ overflow: "hidden" }}>
       <svg width={0} height={0} style={{ position: "absolute" }}>
-        <filter id={`${id}-wb`} x="-5%" y="-30%" width="110%" height="160%">
-          <feGaussianBlur stdDeviation={`0 ${blur.toFixed(1)}`} />
+        <filter id={`${id}-wb`} x={axis === "y" ? "-5%" : "-30%"} y={axis === "y" ? "-30%" : "-5%"} width={axis === "y" ? "110%" : "160%"} height={axis === "y" ? "160%" : "110%"}>
+          <feGaussianBlur stdDeviation={axis === "y" ? `0 ${blur.toFixed(1)}` : `${blur.toFixed(1)} 0`} />
         </filter>
       </svg>
       <AbsoluteFill style={{ filter: blur > 0.5 ? `url(#${id}-wb)` : undefined }}>
-        <AbsoluteFill style={{ transform: `translateY(${dir * p * H}px)` }}>{from}</AbsoluteFill>
-        <AbsoluteFill style={{ transform: `translateY(${dir * (p - 1) * H}px)` }}>{to}</AbsoluteFill>
+        <AbsoluteFill style={{ transform: tr(p) }}>{from}</AbsoluteFill>
+        <AbsoluteFill style={{ transform: tr(p - 1) }}>{to}</AbsoluteFill>
       </AbsoluteFill>
     </AbsoluteFill>
   );

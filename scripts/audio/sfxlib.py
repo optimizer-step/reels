@@ -568,3 +568,132 @@ def reverse_swell(dur=1.2, bright=1.0, seed=8):
     x = hp(r.standard_normal(len(t)), 2500 * bright) * np.exp(-(dur - t) * 4.5)
     x += 0.5 * bp(r.standard_normal(len(t)), 500, 3000) * np.exp(-(dur - t) * 6)
     return fade(norm(haas(x, 9), -2), 0.05, 0.004)
+
+
+# ---------- v2 arrangement + mastering helpers (shared by reel sound scripts) ----------
+
+def reel_timeline(slug: str) -> dict:
+    """A reel's timeline constants (BEATS, CUES, SFX_CUES, DURATION_S, ...) via scripts/audio/cues.mjs."""
+    import json
+
+    out = subprocess.run(["node", str(ROOT / "scripts" / "audio" / "cues.mjs"), slug], capture_output=True, text=True, check=True, cwd=ROOT).stdout
+    return json.loads(out)
+
+
+GROOVE_KICK = {"half": [0, 10], "main": [0, 6, 8, 11], "drop": [0, 3, 6, 8, 10, 11, 14], "four": [0, 4, 8, 12]}
+GROOVE_CLAP = {"half": [8], "main": [4, 12], "drop": [4, 12], "four": [4, 12]}
+
+
+class Groove:
+    """Stems for a 4/4 electronic groove, filled in blocks that start on picture cuts.
+
+    g = Groove(duration, bpm=120)
+    g.block(t0, t1, [(bass_midi, [pad_midis]), ...], lambda t: {"pad": 1, "cut": 1500, "kick": "main", ...})
+    stems = g.stems()   # drums, bass, pad, arp, fx (pump and reverb applied)
+    Parts: pad (+cut Hz), kick/clap pattern names, hats 8|16, open, bass (+bass_pat 16th steps), arp 8|16.
+    """
+
+    def __init__(self, duration: float, bpm: float = 120):
+        self.duration = duration
+        self.n = int(duration * SR)
+        self.beat = 60 / bpm
+        self.bar = 4 * self.beat
+        self.s16 = self.beat / 4
+        self.drums, self.bass, self.pad, self.arp, self.fx = (bus(duration) for _ in range(5))
+        self.kicks: list[float] = []
+        self.K, self.CL, self.HT, self.OH = kick2(click=0.55), clap(), hat(), hat(True)
+
+    def block(self, t0, t1, prog, part_at, seed=0):
+        bar = 0
+        while t0 + bar * self.bar < t1:
+            tb = t0 + bar * self.bar
+            bass_m, pad_ms = prog[bar % len(prog)]
+            p = part_at(tb)
+            if p.get("pad"):
+                d = min(self.bar, t1 - tb) + 0.25
+                env = adsr(int(d * SR), 0.05, 0.2, 0.85, 0.25)[:, None]
+                place(self.pad, supersaw([m2f(m) for m in pad_ms], d, cutoff=p.get("cut", 1800), seed=bar + seed) * env, tb)
+            for s in range(16):
+                ts = tb + s * self.s16
+                if ts >= t1:
+                    break
+                q = part_at(ts)
+                if s in GROOVE_KICK.get(q.get("kick", ""), []):
+                    place(self.drums, self.K, ts, 0.9)
+                    self.kicks.append(ts)
+                if s in GROOVE_CLAP.get(q.get("clap", ""), []):
+                    place(self.drums, self.CL, ts, 1.0)
+                hd = q.get("hats", 0)
+                if hd and (hd == 16 or s % 2 == 0):
+                    place(self.drums, self.HT, ts + 0.006 * (s % 2), 0.42 * [1.0, 0.35, 0.6, 0.35][s % 4], pan=0.25)
+                if q.get("open") and s in (6, 14):
+                    place(self.drums, self.OH, ts, 0.22, pan=-0.2)
+                if q.get("bass") and s in (q.get("bass_pat") or [0, 3, 6, 8, 11, 14]):
+                    glide = m2f(bass_m + 12) if (s == 0 and bar % 2 == 1) else None
+                    place(self.bass, sub_note(m2f(bass_m), self.s16 * 2.6, glide_from=glide, drive=3.5) * 0.42, ts)
+                if q.get("arp") and (q["arp"] == 16 or s % 2 == 0):
+                    notes = [m + 12 for m in pad_ms]
+                    order = [0, 2, 1, 3, 2, 1, 3, 2]
+                    m = notes[order[(s // (1 if q["arp"] == 16 else 2)) % 8]]
+                    place(self.arp, fm_pluck(m2f(m), 0.4, 2.2, 2.0, 8, 18) * 0.16, ts, pan=0.35 * (-1) ** s)
+            bar += 1
+
+    def stems(self) -> dict:
+        pump = duck(self.n, self.kicks, depth=0.5, release=0.16)[:, None]
+        return {
+            "drums": self.drums + reverb(self.drums * 0.25, 1.2, 1.0, tail=False) * 0.25,
+            "bass": self.bass * duck(self.n, self.kicks, depth=0.35, release=0.1)[:, None],
+            "pad": self.pad * pump,
+            "arp": reverb(self.arp, 1.6, 0.35, tail=False),
+            "fx": self.fx,
+        }
+
+
+# faders and voice-ducking depths that balance a Groove for phone speakers under a voiceover
+GROOVE_MIXER = {"drums": 1.0, "bass": 1.0, "pad": 3.0, "arp": 2.5, "fx": 0.9}
+GROOVE_VO_DUCK_DB = {"drums": -8, "bass": -6, "pad": -13, "arp": -22, "fx": -10}
+
+
+def mix_stems(stems: dict, vo=None, mixer=GROOVE_MIXER, vo_duck_db=GROOVE_VO_DUCK_DB) -> np.ndarray:
+    n = len(next(iter(stems.values())))
+    mix = np.zeros((n, 2))
+    for k, fader in mixer.items():
+        x = stems[k] * fader
+        if vo is not None:
+            x = x * vo_duck(n, vo, depth_db=vo_duck_db[k], attack=0.05, release=0.35)[:, None]
+        mix += x
+    return hp(mix, 30, 2)
+
+
+def master_reel(out_dir, tl: dict, target_lufs=-14.0, sfx_vo_duck_db=-6.0):
+    """voice + music.mp3 x MUSIC_VOLUME + every SFX cue -> mix.mp3, limited and normalised."""
+    duration = tl["DURATION_S"]
+    n = int(duration * SR)
+    vo = bus(duration)
+    has_vo = tl["USE_VO"] and (out_dir / "vo.mp3").exists()
+    if has_vo:
+        place(vo, load_audio(out_dir / "vo.mp3"), 0)
+    music = bus(duration)
+    place(music, load_audio(out_dir / "music.mp3") * tl["MUSIC_VOLUME"], 0)
+    fx = bus(duration)
+    for c in tl["SFX_CUES"]:
+        x = load_audio(out_dir / "sfx" / f"{c['file']}.mp3")
+        if "end" in c:
+            x = fade(x[: int((c["end"] - c["t"]) * SR)], 0.001, 0.01)
+        place(fx, x * c["volume"], round(c["t"] * 30) / 30)
+    if has_vo:
+        fx = fx * vo_duck(n, vo, depth_db=sfx_vo_duck_db, attack=0.03, release=0.25)[:, None]
+    mix = vo + music + fx
+    tmp = out_dir / "_mix-pre.wav"
+    mastered = limit(mix, -1.5, release=0.08)
+    for _ in range(3):
+        mastered = limit(mix, -1.5, release=0.08)
+        save(mastered, tmp)
+        lu = loudness(tmp)["I"]
+        if lu is None or abs(lu - target_lufs) < 0.3:
+            break
+        mix = mix * 10 ** ((target_lufs - lu) / 20)
+    tmp.unlink(missing_ok=True)
+    save(mastered, out_dir / "mix.mp3")
+    lv = loudness(out_dir / "mix.mp3")
+    print(f"mix: {lv['I']} LUFS, true peak {lv['TP']} dBTP")
